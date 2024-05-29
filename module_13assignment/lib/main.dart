@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:module_13assignment/screens/ProductGridViewScreen.dart';
-import 'package:http/http.dart' as http;
 void main() {
   runApp(const CURD());
 }

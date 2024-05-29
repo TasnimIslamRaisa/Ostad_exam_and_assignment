@@ -19,7 +19,6 @@ class _ProductGridViewScreenState extends State<ProductGridViewScreen> {
 
   @override
   void initState(){
-
     super.initState();
     CallData();
   }
