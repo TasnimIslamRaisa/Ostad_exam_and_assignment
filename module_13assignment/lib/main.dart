@@ -5,9 +5,7 @@ void main() {
 }
 
 class CURD extends StatefulWidget {
-  const CURD({super.key});
-
-  @override
+  const CURD({super.key});  @override
   State<CURD> createState() => _CURDState();
 }
 
