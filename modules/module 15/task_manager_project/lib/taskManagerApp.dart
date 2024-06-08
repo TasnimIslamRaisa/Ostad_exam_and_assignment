@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_project/ui/screens/splashScreen.dart';
 
-class TaskManagerApp extends StatefulWidget {
+class TaskManagerApp extends StatelessWidget {
   const TaskManagerApp({super.key});
 
   @override
-  State<TaskManagerApp> createState() => _TaskManagerAppState();
-}
-
-class _TaskManagerAppState extends State<TaskManagerApp> {
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp();
+    return const MaterialApp(
+      title: "Task Manager App",
+      debugShowCheckedModeBanner: false,
+      home: SplashScreen(),
+    );
   }
 }
