@@ -50,6 +50,20 @@ class _ToDoScreenState extends State<ToDoScreen>
           backgroundColor: Colors.amber,
           foregroundColor: Colors.black,
           bottom: buildTabBar(),
+          /* actions: [
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SearchScreen(
+                              todo: _todoList,
+                              todoList: [],
+                            )));
+              },
+            ),
+          ], */
         ),
         body: TabBarView(
           children: [
