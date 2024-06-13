@@ -4,6 +4,8 @@ import 'package:task_manager_project/ui/screens/auth/SignUpScreen.dart';
 import 'package:task_manager_project/ui/widgets/bg_widget.dart';
 import 'package:flutter/gestures.dart';
 
+import 'email_verification_screen.dart';
+
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
 
@@ -15,12 +17,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passWordController = TextEditingController();
 
-  @override
-  void dispose() {
-    emailController.dispose();
-    passWordController.dispose();
-    super.dispose();
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +38,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(
-                    height: 8,
+                    height: 30,
                   ),
                   TextFormField(
                     controller: emailController,
@@ -72,12 +69,12 @@ class _SignInScreenState extends State<SignInScreen> {
                     child: Column(
                       children: [
                         TextButton(
-                          onPressed: () {},
-                          child: const Text(
+                          onPressed: () {
+                            onTabForgotPasswordButton();
+                          },
+                          child: Text(
                             "Forgot Password?",
-                            style: TextStyle(
-                              color: AppColors.textColor,
-                            ),
+                            style: Theme.of(context).textTheme.labelMedium,
                           ),
                           // style: Theme.of(context).textTheme.titleLarge,
                         ),
@@ -100,13 +97,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 ),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const SignUpScreen(),
-                                      ),
-                                    );
+                                    onTabSignUpButton();
                                   },
                               ),
                             ],
@@ -123,4 +114,28 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
     );
   }
+  void onTabSignUpButton(){
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+        const SignUpScreen(),
+      ),
+    );
+  }
+
+  void onTabForgotPasswordButton(){
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context)=>const EmailVerificationScreen(),),);
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passWordController.dispose();
+    super.dispose();
+  }
+
 }

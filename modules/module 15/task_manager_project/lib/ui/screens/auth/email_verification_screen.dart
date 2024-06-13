@@ -1,25 +1,21 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:task_manager_project/ui/screens/auth/SignInScreen.dart';
-import 'package:task_manager_project/ui/widgets/bg_widget.dart';
+import 'package:task_manager_project/ui/screens/auth/otp_verification_screen.dart';
 
 import '../../../style/appColors.dart';
+import '../../widgets/bg_widget.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+
+class EmailVerificationScreen extends StatefulWidget {
+  const EmailVerificationScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<EmailVerificationScreen> createState() => _EmailVerificationScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
-
+class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController mobileController = TextEditingController();
-  final TextEditingController passWordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,72 +32,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 250,
                   ),
                   Text(
-                    "Join With Us",
+                    "Your Email Address",
                     style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    "A 6 digit verification pin will send to your email address",
+                    style: Theme.of(context).textTheme.labelMedium,
                   ),
                   const SizedBox(
                     height: 30,
                   ),
                   TextFormField(
                     controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                       hintText: "Email",
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  TextFormField(
-                    controller: firstNameController,
-                    keyboardType: TextInputType.text,
-                    decoration: const InputDecoration(
-                      hintText: "First Name",
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  TextFormField(
-                    controller: lastNameController,
-                    keyboardType: TextInputType.text,
-                    decoration: const InputDecoration(
-                      hintText: "Last Name",
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  TextFormField(
-                    controller: mobileController,
-                    keyboardType: TextInputType.phone,
-                    decoration: const InputDecoration(
-                      hintText: "Mobile",
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  TextFormField(
-                    controller: passWordController,
-                    decoration: const InputDecoration(
-                      hintText: "Password",
                     ),
                   ),
                   const SizedBox(
                     height: 16,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed:onTabArrow,
                     child: const Icon(Icons.arrow_right),
                   ),
                   const SizedBox(
                     height: 45,
                   ),
                   Center(
-                    child: Column(
-                      children: [
-                        RichText(
+                    child: RichText(
                           text: TextSpan(
                             style: const TextStyle(
                                 fontSize: 17,
@@ -123,8 +84,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ],
                           ),
                         ),
-                      ],
-                    ),
                   ),
                 ],
               ),
@@ -134,17 +93,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
-
   void onTabSignInButton(){
-    Navigator.pop(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context)=>const SignInScreen(),),);
   }
+  void onTabArrow(){
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context)=>const OtpVerificationScreen(),),);
+  }
+
   @override
   void dispose() {
     emailController.dispose();
-    firstNameController.dispose();
-    lastNameController.dispose();
-    mobileController.dispose();
-    passWordController.dispose();
     super.dispose();
   }
+
 }

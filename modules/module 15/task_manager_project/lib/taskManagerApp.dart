@@ -22,6 +22,10 @@ class TaskManagerApp extends StatelessWidget {
             fontSize: 30,
             fontWeight: FontWeight.bold,
             color: AppColors.textColor),
+        labelMedium : TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: AppColors.subtitleColor),
       ),
       inputDecorationTheme: InputDecorationTheme(
         fillColor: AppColors.white,
@@ -43,6 +47,14 @@ class TaskManagerApp extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ))),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: AppColors.subtitleColor,
+          textStyle:const TextStyle(
+            fontWeight: FontWeight.w600,
+          )
+        ),
+      ),
     );
   }
 }
