@@ -94,10 +94,12 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
     );
   }
   void onTabSignInButton(){
-    Navigator.push(
+    Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
-        builder: (context)=>const SignInScreen(),),);
+        builder: (context)=>const SignInScreen(),),
+        (route)=>false
+    );
   }
   void onTabArrow(){
     Navigator.push(

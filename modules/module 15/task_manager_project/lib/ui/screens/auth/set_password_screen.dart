@@ -15,7 +15,7 @@ class SetPasswordScreen extends StatefulWidget {
 }
 
 class _SetPasswordScreenState extends State<SetPasswordScreen> {
-  final TextEditingController passController = TextEditingController();
+    final TextEditingController passController = TextEditingController();
   final TextEditingController confirmPassController = TextEditingController();
 
   @override
@@ -65,7 +65,7 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
                     height: 16,
                   ),
                   ElevatedButton(
-                    onPressed:onTabArrow,
+                    onPressed:onTabConfirmButton,
                     child: const Text("Confirm"),
                   ),
                   const SizedBox(
@@ -109,11 +109,11 @@ class _SetPasswordScreenState extends State<SetPasswordScreen> {
       MaterialPageRoute(
         builder: (context)=>const SignInScreen(),),);
   }
-  void onTabArrow(){
+  void onTabConfirmButton(){
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context)=>const OtpVerificationScreen(),),);
+        builder: (context)=>const SignInScreen(),),);
   }
 
   @override
