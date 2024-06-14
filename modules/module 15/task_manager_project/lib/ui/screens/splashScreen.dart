@@ -4,6 +4,8 @@ import 'package:task_manager_project/ui/screens/auth/SignInScreen.dart';
 import 'package:task_manager_project/ui/widgets/bg_widget.dart';
 import 'package:task_manager_project/utility/assets_path.dart';
 
+import 'main_bottom_nav_screen.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -16,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(seconds: 2));
     if (mounted) {
       Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const SignInScreen()));
+          MaterialPageRoute(builder: (context) => const MainBottomNavScreen()));
     }
   }
 
