@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../style/appColors.dart';
+import '../widgets/network_cached_image.dart';
 
 class NewTaskScreen extends StatefulWidget {
   const NewTaskScreen({super.key});
@@ -17,7 +18,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
       appBar: AppBar(
         title:const Text("New Task"),
         leading: CircleAvatar(
-          child: Image.asset("logo.svg"),
+          child: NetworkCachedImage(url: '', fit: null, ),
         ),
         backgroundColor: AppColors.themeColor,
       ),
