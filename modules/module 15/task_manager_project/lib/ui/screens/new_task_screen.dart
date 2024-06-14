@@ -17,8 +17,9 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     return Scaffold(
       appBar: AppBar(
         title:const Text("New Task"),
-        leading: CircleAvatar(
-          child: NetworkCachedImage(url: '', fit: null, ),
+        leading: const CircleAvatar(
+          radius: 12,
+          child: NetworkCachedImage(url: '', fit: BoxFit.fill, ),
         ),
         backgroundColor: AppColors.themeColor,
       ),
