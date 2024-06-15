@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter/rendering.dart';
 import '../../style/appColors.dart';
 import '../../utility/profile_app_bar.dart';
 import '../widgets/network_cached_image.dart';
+import '../widgets/task_summary_card.dart';
 
 class NewTaskScreen extends StatefulWidget {
   const NewTaskScreen({super.key});
@@ -17,36 +17,24 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: profileAppBar(),
-      body: Column(
+      body: const Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Expanded(child: taskSummaryCard("12","New Task")) ,
-              Expanded(child: taskSummaryCard("10","Completed")) ,
-              Expanded(child: taskSummaryCard("12","In Progress")) ,
-              Expanded(child: taskSummaryCard("01","Cancel")) ,
-            ],
+          SingleChildScrollView(
+            scrollDirection:Axis.vertical,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(child: TaskSummaryCard(number: '12', taskName: 'New Task',)) ,
+                Expanded(child: TaskSummaryCard(number: '10', taskName: 'Completed',)) ,
+                Expanded(child: TaskSummaryCard(number: '15', taskName: 'In Progress',)) ,
+                Expanded(child: TaskSummaryCard(number: '05', taskName: 'Cancel',)) ,
+
+              ],
+            ),
           ),
         ],
       ),
     );
   }
-Card taskSummaryCard(number,taskName){
-    return Card(
-      color: Colors.white,
-      elevation: 3,
-      child: Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: Column(
-          children: [
-            Text(
-                number ,
-                style:Theme.of(context).textTheme.titleLarge),
-            Text(taskName,style:Theme.of(context).textTheme.labelMedium)
-          ],
-        ),
-      ),
-    );
-}
+
 }
