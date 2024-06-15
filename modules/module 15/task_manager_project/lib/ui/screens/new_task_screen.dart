@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../style/appColors.dart';
+import '../../utility/profile_app_bar.dart';
 import '../widgets/network_cached_image.dart';
 
 class NewTaskScreen extends StatefulWidget {
@@ -15,28 +16,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title:const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Tasnim Islam Raisa",
-            style: TextStyle(
-              color: Colors.white,
-                fontSize: 18,fontWeight: FontWeight.w600),),
-            Text("islamtasnim65@gmail.com",
-              style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w400),),
-      ],
-        ),
-        elevation: 3,
-        leading:const Padding(
-          padding:  EdgeInsets.all(8.0),
-          child: CircleAvatar(
-            radius: 12,
-            child: NetworkCachedImage(url: '', fit: BoxFit.fill, ),
-          ),
-        ),
-        backgroundColor: AppColors.themeColor,
-      ),
+      appBar: profileAppBar(),
       body:const Column(
         children: [
           Row(
@@ -55,4 +35,5 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
       ),
     );
   }
+
 }
