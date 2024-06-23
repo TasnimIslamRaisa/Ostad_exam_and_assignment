@@ -35,13 +35,26 @@ AppBar profileAppBar(context,[bool fromUpdateProfile=false]) {
       ),
     ),
     elevation: 3,
-    leading: const Padding(
-      padding: EdgeInsets.all(8.0),
-      child: CircleAvatar(
-        radius: 12,
-        child: NetworkCachedImage(
-          url: '',
-          fit: BoxFit.fill,
+    leading: GestureDetector(
+      onTap: () {
+        if(fromUpdateProfile){
+          return;
+        }
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const UpdateScreen(),
+          ),
+        );
+      },
+      child: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: CircleAvatar(
+          radius: 12,
+          child: NetworkCachedImage(
+            url: '',
+            fit: BoxFit.fill,
+          ),
         ),
       ),
     ),
