@@ -25,7 +25,7 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: profileAppBar(),
+      appBar: profileAppBar(context),
       body: screens[selected_index],
       bottomNavigationBar:BottomNavigationBar(
         currentIndex: selected_index,
