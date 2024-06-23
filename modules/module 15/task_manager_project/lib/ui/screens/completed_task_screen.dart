@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:task_manager_project/style/appColors.dart';
+import '../widgets/task_item_card.dart';
 
 class CompletedTaskScreen extends StatefulWidget {
   const CompletedTaskScreen({super.key});
@@ -13,10 +12,11 @@ class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Completed"),
-        backgroundColor: AppColors.themeColor,
-      ),
+      body: ListView.builder(
+          itemCount: 15,
+          itemBuilder: (context,index){
+            return const TaskItemCard();
+          }),
     );
   }
 }

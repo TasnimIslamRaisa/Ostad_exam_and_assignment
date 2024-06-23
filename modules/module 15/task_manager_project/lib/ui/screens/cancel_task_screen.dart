@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../style/appColors.dart';
+import '../widgets/task_item_card.dart';
 
 class CancelTaskScreen extends StatefulWidget {
   const CancelTaskScreen({super.key});
@@ -14,11 +12,11 @@ class _CancelTaskScreenState extends State<CancelTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      appBar: AppBar(
-        title: Text("Cancel"),
-        backgroundColor: AppColors.themeColor,
-      ),
+      body: ListView.builder(
+          itemCount: 15,
+          itemBuilder: (context,index){
+            return const TaskItemCard();
+          }),
     );
   }
 }

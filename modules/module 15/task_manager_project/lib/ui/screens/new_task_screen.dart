@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../style/appColors.dart';
-import '../../utility/profile_app_bar.dart';
-import '../widgets/network_cached_image.dart';
+import 'package:task_manager_project/style/appColors.dart';
+import 'package:task_manager_project/ui/screens/add_new_task_screen.dart';
+import '../widgets/task_item_card.dart';
 import '../widgets/task_summary_card.dart';
 
 class NewTaskScreen extends StatefulWidget {
@@ -16,49 +15,35 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: profileAppBar(),
-      body: Column(
-        children: [
-          buildSummarySelection(),
-          Expanded(
-              child: ListView.builder(
-                itemCount: 15,
-                  itemBuilder: (context,index){
-                    return Card(
-                      elevation: 3,
-                      color: AppColors.white,
-                      child: ListTile(
-                        title: Text("Title will be here"),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text("Description will be here"),
-                            const Text("Date : 12/12/24",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                            ),),
-                            Row(
-                              children: [
-                                Chip(
-                                  label: Text("New",style: TextStyle(color: AppColors.white),),shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-
-                                ),
-                                  padding: EdgeInsets.symmetric(horizontal: 8,vertical: 2),
-                                  backgroundColor: AppColors.themeColor,
-                                ),
-
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }),),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.only(top: 8,left: 8,right: 8),
+        child: Column(
+          children: [
+            buildSummarySelection(),
+            const SizedBox(height: 10,),
+            Expanded(
+                child: ListView.builder(
+                  itemCount: 15,
+                    itemBuilder: (context,index){
+                      return const TaskItemCard();
+                    }),),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.themeColor,
+        foregroundColor: AppColors.white,
+        onPressed: onTabAddButton,
+        child:const Icon(Icons.add),
       ),
     );
+  }
+
+  void onTabAddButton(){
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context)=>const AddNewTaskScreen(),),);
   }
   Widget buildSummarySelection(){
     return const SingleChildScrollView(
@@ -75,3 +60,5 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     );
   }
 }
+
+

@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:task_manager_project/style/appColors.dart';
 import 'package:task_manager_project/ui/screens/cancel_task_screen.dart';
 import 'package:task_manager_project/ui/screens/completed_task_screen.dart';
 import 'package:task_manager_project/ui/screens/in_progress_screen.dart';
 import 'package:task_manager_project/ui/screens/new_task_screen.dart';
+
+import '../../utility/profile_app_bar.dart';
 
 class MainBottomNavScreen extends StatefulWidget {
   const MainBottomNavScreen({super.key});
@@ -24,6 +25,7 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: profileAppBar(),
       body: screens[selected_index],
       bottomNavigationBar:BottomNavigationBar(
         currentIndex: selected_index,
