@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:task_manager_project/ui/screens/auth/SignInScreen.dart';
+import 'package:task_manager_project/ui/screens/auth/SignUpScreen.dart';
 import 'package:task_manager_project/ui/widgets/bg_widget.dart';
 import 'package:task_manager_project/utility/assets_path.dart';
 
@@ -18,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(seconds: 2));
     if (mounted) {
       Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const MainBottomNavScreen()));
+          MaterialPageRoute(builder: (context) => const SignUpScreen()));
     }
   }
 
