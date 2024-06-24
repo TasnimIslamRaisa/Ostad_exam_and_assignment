@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:task_manager_project/data/models/network_response.dart';
+import 'package:task_manager_project/data/restAPI/network_caller.dart';
 import 'package:task_manager_project/ui/screens/auth/SignInScreen.dart';
 import 'package:task_manager_project/ui/widgets/bg_widget.dart';
 import 'package:task_manager_project/utility/appConstant.dart';
@@ -22,6 +24,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController passWordController = TextEditingController();
   final GlobalKey<FormState> _formkey=GlobalKey<FormState>();
   bool showPassWord=false;
+  bool registrationInProgress=false;
 
   @override
   Widget build(BuildContext context) {
@@ -192,6 +195,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void onTabSignInButton(){
     Navigator.pop(context);
   }
+
+  Future<void> registerUser() async{
+    registrationInProgress=true;
+    if(mounted){
+      setState(() {});
+    }
+    Map<String,dynamic> requestInput={
+      "email": emailController.text.trim(),
+      "firstName": firstNameController.text.trim(),
+      "lastName": lastNameController.text.trim(),
+      "mobile": mobileController.text.trim(),
+      "password": passWordController.text,
+      "photo": ""
+    };
+    NetworkResponse response =await NetworkCaller.postRequest("url");
+  }
+
+
   @override
   void dispose() {
     emailController.dispose();
