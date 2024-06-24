@@ -145,13 +145,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     const SizedBox(
                       height: 16,
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        if(_formkey.currentState!.validate()){
-                          registerUser();
-                        }
-                      },
-                      child: const Icon(Icons.arrow_right),
+                    Visibility(
+                      visible:! registrationInProgress,
+                      replacement: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          if(_formkey.currentState!.validate()){
+                            await registerUser();
+                          }
+                        },
+                        child: const Icon(Icons.arrow_right),
+                      ),
                     ),
                     const SizedBox(
                       height: 45,
@@ -212,11 +218,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
       "photo": ""
     };
     NetworkResponse response =await NetworkCaller.postRequest(Urls.registration,body: requestInput);
+    registrationInProgress=false;
+    if(mounted){
+      setState(() {});
+    }
     if(response.isSuccess){
-      clearfield();
       if(mounted){
         showSnackBarMsg(context, 'Registration Successful');
       }
+      clearfield();
     } else {
       if(mounted){
         showSnackBarMsg(context, 'Registration Cancel');
