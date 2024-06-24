@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:task_manager_project/data/models/network_response.dart';
 import 'package:task_manager_project/data/restAPI/network_caller.dart';
+import 'package:task_manager_project/data/urls.dart';
 import 'package:task_manager_project/ui/screens/auth/SignInScreen.dart';
 import 'package:task_manager_project/ui/widgets/bg_widget.dart';
 import 'package:task_manager_project/utility/appConstant.dart';
 import '../../../style/appColors.dart';
+import '../../widgets/snackBar_msg.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -146,7 +148,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ElevatedButton(
                       onPressed: () {
                         if(_formkey.currentState!.validate()){
-                          //TODO : Call reg api
+                          registerUser();
                         }
                       },
                       child: const Icon(Icons.arrow_right),
@@ -209,7 +211,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
       "password": passWordController.text,
       "photo": ""
     };
-    NetworkResponse response =await NetworkCaller.postRequest("url");
+    NetworkResponse response =await NetworkCaller.postRequest(Urls.registration,body: requestInput);
+    if(response.isSuccess){
+      clearfield();
+      if(mounted){
+        showSnackBarMsg(context, 'Registration Successful');
+      }
+    } else {
+      if(mounted){
+        showSnackBarMsg(context, 'Registration Cancel');
+      }
+    }
+  }
+  void clearfield(){
+    emailController.clear();
+    firstNameController.clear();
+    lastNameController.clear();
+    mobileController.clear();
+    passWordController.clear();
   }
 
 
