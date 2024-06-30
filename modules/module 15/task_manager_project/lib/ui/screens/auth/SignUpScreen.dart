@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:task_manager_project/data/models/network_response.dart';
 import 'package:task_manager_project/data/restAPI/network_caller.dart';
 import 'package:task_manager_project/data/urls.dart';
@@ -38,13 +37,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: SafeArea(
               child: Form(
                 key: _formkey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(
-                      height: 250,
+                      height: 120,
                     ),
                     Text(
                       "Join With Us",
@@ -59,7 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       decoration: const InputDecoration(
                         hintText: "emailaddress@gmail.com",
                       ),
-
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (String? value){
                         if(value?.trim().isEmpty?? true){
                           return "Enter Your Email ";
@@ -67,7 +64,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         if(AppConstant.emailRegExp.hasMatch(value!)==false){
                           return "Enter a valid email address";
                         }
-                        return "";
+                        return null;
                       },
                     ),
                     const SizedBox(
@@ -79,10 +76,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       decoration: const InputDecoration(
                         hintText: "First Name",
                       ),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (String? value){
                         if(value?.trim().isEmpty?? true){
                           return "Enter Your First Name ";
-                        } return "";
+                        } return null;
                       },
                     ),
                     const SizedBox(
@@ -94,10 +92,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       decoration: const InputDecoration(
                         hintText: "Last Name",
                       ),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (String? value){
                         if(value?.trim().isEmpty?? true){
                           return "Enter Your Last name ";
-                        } return "";
+                        } return null;
                       },
                     ),
                     const SizedBox(
@@ -109,6 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       decoration: const InputDecoration(
                         hintText: "Mobile",
                       ),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (String? value){
                         if(value?.trim().isEmpty?? true){
                           return "Enter Your Phone Number ";
@@ -116,7 +116,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         if(AppConstant.phoneRegExp.hasMatch(value!)==false){
                           return "Enter a valid mobile number";
                         }
-                        return "";
+                        return null;
                       },
                     ),
                     const SizedBox(
@@ -136,10 +136,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           } ,
                              icon: Icon(showPassWord? Icons.visibility : Icons.visibility_off),) ,
                       ),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       validator: (String? value){
                         if(value?.trim().isEmpty?? true){
                           return "Enter Your Password ";
-                        } return "";
+                        } return null;
                       },
                     ),
                     const SizedBox(
