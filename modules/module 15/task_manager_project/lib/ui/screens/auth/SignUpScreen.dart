@@ -230,7 +230,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       clearfield();
     } else {
       if(mounted){
-        showSnackBarMsg(context, 'Registration Cancel');
+        showSnackBarMsg(context, 'Registration Failed');
       }
     }
   }

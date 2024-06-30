@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_project/data/models/network_response.dart';
+import 'package:task_manager_project/data/restAPI/network_caller.dart';
+import 'package:task_manager_project/data/urls.dart';
 import 'package:task_manager_project/style/appColors.dart';
 import 'package:task_manager_project/ui/screens/auth/SignUpScreen.dart';
+import 'package:task_manager_project/ui/screens/main_bottom_nav_screen.dart';
 import 'package:task_manager_project/ui/widgets/bg_widget.dart';
 import 'package:flutter/gestures.dart';
 
+import '../../../data/models/logInModel.dart';
+import '../../../utility/appConstant.dart';
+import '../../controller/auth_controller.dart';
+import '../../widgets/snackBar_msg.dart';
 import 'email_verification_screen.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -16,8 +24,9 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passWordController = TextEditingController();
-
-
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  bool signInApiInProgress = false;
+  bool showPassWord = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,86 +36,122 @@ class _SignInScreenState extends State<SignInScreen> {
           child: Padding(
             padding: const EdgeInsets.all(30.0),
             child: SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 250,
-                  ),
-                  Text(
-                    "Get Started With",
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  TextFormField(
-                    controller: emailController,
-                    decoration: const InputDecoration(
-                      hintText: "Email",
+              child: Form(
+                key: _formkey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 250,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  TextFormField(
-                    controller: passWordController,
-                    decoration: const InputDecoration(
-                      hintText: "Password",
+                    Text(
+                      "Get Started With",
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: const Icon(Icons.arrow_right),
-                  ),
-                  const SizedBox(
-                    height: 45,
-                  ),
-                  Center(
-                    child: Column(
-                      children: [
-                        TextButton(
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    TextFormField(
+                      controller: emailController,
+                      decoration: const InputDecoration(
+                        hintText: "Email",
+                      ),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (String? value) {
+                        if (value?.trim().isEmpty ?? true) {
+                          return "Enter Your Email ";
+                        }
+                        if (AppConstant.emailRegExp.hasMatch(value!) == false) {
+                          return "Enter a valid email address";
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    TextFormField(
+                      controller: passWordController,
+                      obscureText: showPassWord == false,
+                      decoration: InputDecoration(
+                        hintText: "Password",
+                        suffixIcon: IconButton(
                           onPressed: () {
-                            onTabForgotPasswordButton();
+                            showPassWord = !showPassWord;
+                            if (mounted) {
+                              setState(() {});
+                            }
                           },
-                          child: Text(
-                            "Forgot Password?",
-                            style: Theme.of(context).textTheme.labelMedium,
-                          ),
-                          // style: Theme.of(context).textTheme.titleLarge,
+                          icon: Icon(showPassWord
+                              ? Icons.visibility
+                              : Icons.visibility_off),
                         ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        RichText(
-                          text: TextSpan(
-                            style: const TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.textColor,
-                                letterSpacing: 0.4),
-                            text: "Don't have an account?",
-                            children: [
-                              TextSpan(
-                                text: "  Sign-Up",
-                                style: const TextStyle(
-                                  color: AppColors.themeColor,
-                                ),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    onTabSignUpButton();
-                                  },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                      ),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (String? value) {
+                        if (value?.trim().isEmpty ?? true) {
+                          return "Enter Your Password ";
+                        }
+                        return null;
+                      },
                     ),
-                  ),
-                ],
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Visibility(
+                      visible: signInApiInProgress==false,
+                      replacement: const Center(child: CircularProgressIndicator()),
+                      child: ElevatedButton(
+                        onPressed: onTabNextButton,
+                        child: const Icon(Icons.arrow_right),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 45,
+                    ),
+                    Center(
+                      child: Column(
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              onTabForgotPasswordButton();
+                            },
+                            child: Text(
+                              "Forgot Password?",
+                              style: Theme.of(context).textTheme.labelMedium,
+                            ),
+                            // style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          RichText(
+                            text: TextSpan(
+                              style: const TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.textColor,
+                                  letterSpacing: 0.4),
+                              text: "Don't have an account?",
+                              children: [
+                                TextSpan(
+                                  text: "  Sign-Up",
+                                  style: const TextStyle(
+                                    color: AppColors.themeColor,
+                                  ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      onTabSignUpButton();
+                                    },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -114,21 +159,61 @@ class _SignInScreenState extends State<SignInScreen> {
       ),
     );
   }
-  void onTabSignUpButton(){
+
+  Future<void> signUp() async {
+    signInApiInProgress = true;
+    if (mounted) {
+      setState(() {});
+    }
+    Map<String, dynamic> requestdata = {
+      "email": emailController.text.trim(),
+      "password": passWordController.text,
+    };
+    final NetworkResponse response =
+        await NetworkCaller.postRequest(Urls.login, body: requestdata);
+    signInApiInProgress = true;
+    if (mounted) {
+      setState(() {});
+    }
+    if (response.isSuccess) {
+      LogInModel  loginModel=LogInModel.fromJson(response.responseData);
+      await AuthController.saveUserAccessToken(loginModel.token!);
+      await AuthController.saveUserdata(loginModel.userModel!);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const MainBottomNavScreen(),
+        ),
+      );
+    } else {
+      showSnackBarMsg(context,
+          response.errorMsg ?? 'Email or password is not correct!');
+    }
+  }
+
+  void onTabNextButton() {
+
+    if (_formkey.currentState!.validate()) {
+      signUp();
+    }
+  }
+
+  void onTabSignUpButton() {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-        const SignUpScreen(),
+        builder: (context) => const SignUpScreen(),
       ),
     );
   }
 
-  void onTabForgotPasswordButton(){
+  void onTabForgotPasswordButton() {
     Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context)=>const EmailVerificationScreen(),),);
+      context,
+      MaterialPageRoute(
+        builder: (context) => const EmailVerificationScreen(),
+      ),
+    );
   }
 
   @override
@@ -137,5 +222,4 @@ class _SignInScreenState extends State<SignInScreen> {
     passWordController.dispose();
     super.dispose();
   }
-
 }
