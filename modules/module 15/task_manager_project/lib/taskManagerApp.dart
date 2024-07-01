@@ -19,11 +19,11 @@ class TaskManagerApp extends StatelessWidget {
     return ThemeData(
       textTheme: const TextTheme(
         titleLarge: TextStyle(
-            fontSize: 30,
+            fontSize: 25,
             fontWeight: FontWeight.bold,
             color: AppColors.textColor),
         labelMedium : TextStyle(
-            fontSize: 18,
+            fontSize: 12,
             fontWeight: FontWeight.w600,
             color: AppColors.subtitleColor),
       ),

@@ -54,7 +54,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
           Expanded(child: TaskSummaryCard(number: '12', taskName: 'New Task',)) ,
           Expanded(child: TaskSummaryCard(number: '10', taskName: 'Completed',)) ,
           Expanded(child: TaskSummaryCard(number: '15', taskName: 'In Progress',)) ,
-          Expanded(child: TaskSummaryCard(number: '05', taskName: 'Cancel',)) ,
+          Expanded(child: TaskSummaryCard(number: '05', taskName: 'Cancel Cancel',)) ,
         ],
       ),
     );
