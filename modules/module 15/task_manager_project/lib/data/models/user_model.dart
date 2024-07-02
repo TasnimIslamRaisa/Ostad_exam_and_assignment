@@ -6,6 +6,10 @@ class UserModel {
   String? mobile;
   String? photo;
 
+  String get fullName{
+    return (firstName ?? '') + " " +(lastName ?? '');
+  }
+
   UserModel({this.email, this.firstName, this.lastName, this.mobile, this.photo});
 
   UserModel.fromJson(Map<String, dynamic> json) {

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:task_manager_project/ui/controller/auth_controller.dart';
+import 'package:task_manager_project/ui/screens/auth/SignInScreen.dart';
 import 'package:task_manager_project/ui/screens/update_screen.dart';
 
 import '../style/appColors.dart';
@@ -18,16 +20,16 @@ AppBar profileAppBar(context,[bool fromUpdateProfile=false]) {
           ),
         );
       },
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Tasnim Islam Raisa",
+            AuthController.userData?.fullName ?? '',
             style: TextStyle(
                 color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
           ),
           Text(
-            "islamtasnim65@gmail.com",
+            AuthController.userData?.email ?? '',
             style: TextStyle(
                 color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400),
           ),
@@ -59,6 +61,13 @@ AppBar profileAppBar(context,[bool fromUpdateProfile=false]) {
       ),
     ),
     backgroundColor: AppColors.themeColor,
-    actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.logout))],
+    actions: [IconButton(onPressed: () async {
+      await AuthController.clearAllData();
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context)=> const SignInScreen(),),
+          (route)=>false,
+      );
+    }, icon: const Icon(Icons.logout))],
   );
 }

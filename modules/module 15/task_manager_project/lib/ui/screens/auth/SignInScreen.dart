@@ -179,15 +179,19 @@ class _SignInScreenState extends State<SignInScreen> {
       LogInModel  loginModel=LogInModel.fromJson(response.responseData);
       await AuthController.saveUserAccessToken(loginModel.token!);
       await AuthController.saveUserdata(loginModel.userModel!);
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const MainBottomNavScreen(),
-        ),
-      );
+      if(mounted){
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MainBottomNavScreen(),
+          ),
+        );
+      }
     } else {
-      showSnackBarMsg(context,
-          response.errorMsg ?? 'Email or password is not correct!');
+      if(mounted){
+        showSnackBarMsg(
+            context, response.errorMsg ?? 'Email or password is not correct!');
+      }
     }
   }
 
