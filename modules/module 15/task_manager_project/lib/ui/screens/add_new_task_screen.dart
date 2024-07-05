@@ -67,7 +67,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                   ),
                   Visibility(
                     visible: addNettaskInProgress==false,
-                    replacement:CenteredProgressIndicator(),
+                    replacement: const CircularProgressIndicator(),
                     child: ElevatedButton(onPressed: () async{
                       if(_formkey.currentState!.validate()){
                         await addNewTask();
@@ -92,12 +92,14 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
       "description":descriptionController.text.trim(),
       "status":"New"
     };
-    NetworkResponse response=await NetworkCaller.postRequest(Urls.createTask,body: requestdata,);
+    NetworkResponse response=await NetworkCaller.postRequest(
+      Urls.createTask,
+      body: requestdata,
+    );
     addNettaskInProgress=false;
     if(mounted){
       setState(() {});
     }
-
     if(response.isSuccess){
       clearTextField();
       if(mounted){

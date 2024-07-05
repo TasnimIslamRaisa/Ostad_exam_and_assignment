@@ -7,7 +7,7 @@ import '../../data/models/user_model.dart';
 class AuthController {
   static String accesstokenkey = 'access-token';
   static const String userDatakey = 'user-data';
-  static String accessToken = "";
+  static String accessToken = '';
   static UserModel? userData;
 
   static Future<void> saveUserAccessToken(String token) async {
