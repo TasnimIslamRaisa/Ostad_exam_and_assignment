@@ -1,10 +1,9 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:task_manager_project/taskManagerApp.dart';
 import 'package:task_manager_project/ui/controller/auth_controller.dart';
+import 'package:task_manager_project/ui/screens/auth/SignInScreen.dart';
 import '../models/network_response.dart';
 
 class NetworkCaller {
@@ -56,7 +55,7 @@ class NetworkCaller {
           headers: {
             'Content-type': 'Application/json',
             'token': AuthController.accessToken,
-          });
+          },);
       debugPrint(response.statusCode.toString());
       debugPrint(response.body.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -86,12 +85,11 @@ class NetworkCaller {
       );
     }
   }
-  static Future<void> redirectToLogIn()async {
+  static Future<void> redirectToLogIn() async {
     await AuthController.clearAllData();
-    Navigator.pushNamedAndRemoveUntil(
+    Navigator.pushAndRemoveUntil(
         TaskManagerApp.navigatorKey.currentContext!,
-        '/SignInScreen',
-        (route)=>false
-    );
+        MaterialPageRoute(builder: (context) => const SignInScreen()),
+            (route) => false);
   }
 }
