@@ -1,21 +1,21 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:task_manager_project/taskManagerApp.dart';
 import 'package:task_manager_project/ui/controller/auth_controller.dart';
-
 import '../models/network_response.dart';
 
 class NetworkCaller {
   static Future<NetworkResponse> getRequest(String url) async {
     try {
       debugPrint(url);
-
       Response response = await get(
           Uri.parse(url),
           headers: {
-        'token': AuthController.accessToken,
-      });
+            'token': AuthController.accessToken,
+          });
       debugPrint(response.statusCode.toString());
       debugPrint(response.body);
       if (response.statusCode == 200) {
@@ -24,6 +24,12 @@ class NetworkCaller {
           statusCode: response.statusCode,
           isSuccess: true,
           responseData: decodedData,
+        );
+      } else if(response.statusCode==401) {
+        redirectToLogIn();
+        return NetworkResponse(
+          statusCode: response.statusCode,
+          isSuccess: false,
         );
       } else {
         return NetworkResponse(
@@ -60,7 +66,13 @@ class NetworkCaller {
           isSuccess: true,
           responseData: decodedData,
         );
-      } else {
+      }else if(response.statusCode==401) {
+        redirectToLogIn();
+        return NetworkResponse(
+          statusCode: response.statusCode,
+          isSuccess: false,
+        );
+      }  else {
         return NetworkResponse(
           statusCode: response.statusCode,
           isSuccess: false,
@@ -73,5 +85,13 @@ class NetworkCaller {
         errorMsg: e.toString(),
       );
     }
+  }
+  static Future<void> redirectToLogIn()async {
+    await AuthController.clearAllData();
+    Navigator.pushNamedAndRemoveUntil(
+        TaskManagerApp.navigatorKey.currentContext!,
+        '/SignInScreen',
+        (route)=>false
+    );
   }
 }
