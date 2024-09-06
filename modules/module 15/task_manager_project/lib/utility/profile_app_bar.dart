@@ -25,7 +25,7 @@ AppBar profileAppBar(context,[bool fromUpdateProfile=false]) {
         children: [
           Text(
             AuthController.userData?.fullName ?? '',
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
           ),
           Text(
