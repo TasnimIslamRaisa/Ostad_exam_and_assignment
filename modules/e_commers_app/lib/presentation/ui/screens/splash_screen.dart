@@ -1,5 +1,9 @@
+import 'package:e_commers_app/presentation/ui/screens/email_varification_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+
+import '../widgets/app_logo_widget.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -9,21 +13,31 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  Future<void> _moveToNextScreen() async{
+    await Future.delayed(const Duration(seconds: 2));
+    Get.off(()=>const EmailVarificationScreen());
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _moveToNextScreen();
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Spacer(),
-              SvgPicture.asset('assets/images/logo.svg'),
               Spacer(),
-              const CircularProgressIndicator(),
-              const SizedBox(height: 16,),
-              const Text("version 1.0.8"),
+              AppLogoWidget(),
+              Spacer(),
+              CircularProgressIndicator(),
+              SizedBox(height: 16,),
+              Text("version 1.0.8"),
 
             ],
           ),
