@@ -35,6 +35,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
               ),),
               const SizedBox(height: 24,),
               TextField(
+                textInputAction: TextInputAction.next,
                 controller: _firstNameController,
                 decoration: const InputDecoration(
                     hintText: 'First Name'
@@ -42,6 +43,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
               ),
               const SizedBox(height: 16,),
               TextField(
+                textInputAction: TextInputAction.next,
                 controller: _lastNameController,
                 decoration: const InputDecoration(
                     hintText: 'Last Name'
@@ -49,6 +51,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
               ),
               const SizedBox(height: 16,),
               TextField(
+                textInputAction: TextInputAction.next,
                 controller: _mobileController,
                 decoration: const InputDecoration(
                     hintText: 'Mobile'
@@ -56,6 +59,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
               ),
               const SizedBox(height: 16,),
               TextField(
+                textInputAction: TextInputAction.next,
                 controller: _cityController,
                 decoration: const InputDecoration(
                     hintText: 'City'
@@ -63,6 +67,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
               ),
               const SizedBox(height: 16,),
               TextField(
+                textInputAction: TextInputAction.newline,
                 controller: _shippingAddressController,
                 maxLines: 5,
                 decoration: const InputDecoration(
@@ -89,6 +94,10 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
   void dispose() {
     // TODO: implement dispose
     _firstNameController.dispose();
+    _lastNameController.dispose();
+    _mobileController.dispose();
+    _cityController.dispose();
+    _shippingAddressController.dispose();
     super.dispose();
 
   }
