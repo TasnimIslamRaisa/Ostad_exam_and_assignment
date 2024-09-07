@@ -1,8 +1,8 @@
-import 'package:e_commers_app/presentation/ui/screens/otp_verification_screen.dart';
 import 'package:e_commers_app/presentation/ui/utils/app_colors.dart';
 import 'package:e_commers_app/presentation/ui/widgets/app_logo_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'home_screen.dart';
 
 class CompleteProfileScreen extends StatefulWidget {
   const CompleteProfileScreen({super.key});
@@ -87,7 +87,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
   }
 
   void onTabNextButton(){
-    Get.to(()=>const OTPVarificationScreen());
+    Get.to(()=>const HomeScreen());
   }
 
   @override
@@ -99,6 +99,5 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
     _cityController.dispose();
     _shippingAddressController.dispose();
     super.dispose();
-
   }
 }
