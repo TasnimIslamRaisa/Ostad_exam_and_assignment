@@ -43,14 +43,14 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 18,
             ),
-            SectionHeader(
-              header: 'Categories',
-              onTap: () {},
-            ),
-            const SizedBox(
-              height: 18,
-            ),
             buildCategoriesSection(),
+            const SizedBox(
+              height: 8,
+            ),
+            buildProductSection(),
+
+
+
           ],
         ),
       ),
@@ -59,44 +59,96 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 Widget buildCategoriesSection() {
-  return SizedBox(
-    height: 140,
-    child: categorieListView(),
+  return Column(
+    children: [
+      SectionHeader(
+        header: 'Categories',
+        onTap: () {},
+      ),
+      const SizedBox(
+        height: 18,
+      ),
+       SizedBox(
+    height: 110,
+    child: ListView.separated(
+    scrollDirection: Axis.horizontal,
+      itemCount: 10,
+      itemBuilder: (context, index) {
+        return Column(
+          //mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: AppColors.themeColor.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Icon(
+                Icons.computer,
+                color: AppColors.themeColor,
+                size: 48,
+              ),
+            ),
+            const SizedBox(
+              height: 4,
+            ),
+            const Text(
+              "Electronics",
+              style: TextStyle(color: AppColors.themeColor),
+            ),
+          ],
+        );
+      },
+      separatorBuilder: (_, __) => const SizedBox(
+        width: 8,
+      ),
+    ),
+  ),
+    ],
   );
 }
 
-Widget categorieListView() {
-  return ListView.separated(
+
+Widget buildProductSection() {
+  return Column(
+    children: [
+      SectionHeader(
+        header: 'Popular',
+        onTap: () {},
+      ),
+      const SizedBox(height: 8),
+      SizedBox(
+    height: 120,
+    child: ListView.separated(
     scrollDirection: Axis.horizontal,
-    itemCount: 10,
-    itemBuilder: (context, index) {
-      return Column(
-        //mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: AppColors.themeColor.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(12),
+      itemCount: 10,
+      itemBuilder: (context, index) {
+        return Column(
+          //mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: AppColors.themeColor.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Icon(
+                Icons.computer,
+                color: AppColors.themeColor,
+                size: 48,
+              ),
             ),
-            child: const Icon(
-              Icons.computer,
-              color: AppColors.themeColor,
-              size: 48,
-            ),
-          ),
-          const SizedBox(
-            height: 4,
-          ),
-          const Text(
-            "Electronics",
-            style: TextStyle(color: AppColors.themeColor),
-          ),
-        ],
-      );
-    },
-    separatorBuilder: (_, __) => const SizedBox(
-      width: 8,
+
+          ],
+        );
+      },
+      separatorBuilder: (_, __) => const SizedBox(
+        width: 8,
+      ),
     ),
+  )
+    ],
   );
 }
+
+
