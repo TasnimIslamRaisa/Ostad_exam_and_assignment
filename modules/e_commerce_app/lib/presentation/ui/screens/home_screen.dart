@@ -131,6 +131,10 @@ Widget buildProductSection() {
               decoration: BoxDecoration(
                 color: AppColors.themeColor.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(12),
+                image: DecorationImage(
+                  image: AssetImage(AssetsPath.productImg),
+                  fit: BoxFit.contain,
+                ),
               ),
               child: const Icon(
                 Icons.computer,
