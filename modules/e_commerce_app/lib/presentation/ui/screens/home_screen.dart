@@ -1,3 +1,4 @@
+import 'package:e_commers_app/presentation/controller/bottom_nav_bar_controller.dart';
 import 'package:e_commers_app/presentation/ui/screens/product_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,7 +10,6 @@ import '../widgets/horizontal_product_listView_widget.dart';
 import '../widgets/search_widget.dart';
 import '../widgets/section_header_widget.dart';
 import 'category_list_screen.dart';
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -51,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+
     );
   }
 }
@@ -74,7 +75,7 @@ Widget buildSection(String title, Widget listView) {
   return Column(
     children: [
       SectionHeader(header: title, onTap: () {
-        Get.to(()=>const ProductListScreen(categoryName: 'Popular Product',));
+        Get.find<BottomNavbarController>().selectCategoryTab();
       }),
       const SizedBox(height: 18),
       SizedBox(child: listView),

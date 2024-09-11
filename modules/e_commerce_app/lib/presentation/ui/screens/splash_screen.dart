@@ -1,8 +1,6 @@
-import 'package:e_commers_app/presentation/ui/screens/email_varification_screen.dart';
-import 'package:e_commers_app/presentation/ui/screens/home_screen.dart';
+import 'package:e_commers_app/presentation/ui/screens/bottom_nav_bar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../widgets/app_logo_widget.dart';
 
 
@@ -16,11 +14,12 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   Future<void> _moveToNextScreen() async{
     await Future.delayed(const Duration(seconds: 2));
-    Get.off(()=>const HomeScreen());
+    //Get.off(()=>const HomeScreen());
+    Get.off(()=>const BottomNavBarScreen());
   }
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     _moveToNextScreen();
   }

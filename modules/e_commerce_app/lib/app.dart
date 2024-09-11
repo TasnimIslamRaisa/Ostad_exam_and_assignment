@@ -3,6 +3,8 @@ import 'package:e_commers_app/presentation/ui/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
+import 'controller_binder.dart';
+
 class CraftyBay extends StatelessWidget {
   const CraftyBay({super.key});
 
@@ -10,6 +12,7 @@ class CraftyBay extends StatelessWidget {
   Widget build(BuildContext context) {
     return  GetMaterialApp(
       title: 'CraftyBay',
+      initialBinding:ControllerBinder() ,
       theme: ThemeData(
         colorSchemeSeed:AppColors.themeColor,
         scaffoldBackgroundColor: Colors.white,
