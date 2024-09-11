@@ -23,12 +23,12 @@ class CraftyBay extends StatelessWidget {
           ),
         ),
         inputDecorationTheme: InputDecorationTheme(
-          hintStyle: TextStyle(color: AppColors.bodyLargeColor),
+          hintStyle: const TextStyle(color: AppColors.bodyLargeColor),
             border: _outlineInputBorder(),
             enabledBorder: _outlineInputBorder(),
             focusedBorder: _outlineInputBorder(),
             errorBorder: _outlineInputBorder(Colors.red),
-          contentPadding: EdgeInsets.symmetric(vertical: 6,horizontal: 16)
+          contentPadding: const EdgeInsets.symmetric(vertical: 6,horizontal: 16)
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
@@ -45,6 +45,15 @@ class CraftyBay extends StatelessWidget {
             textStyle:const TextStyle(
               fontSize: 16,
             ),
+          ),
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          //foregroundColor: Colors.black
+          titleTextStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+            fontWeight: FontWeight.w600
           ),
         ),
       ),
