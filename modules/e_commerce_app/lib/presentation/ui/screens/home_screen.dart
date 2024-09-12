@@ -60,7 +60,8 @@ Widget buildCategoriesSection() {
   return Column(
     children: [
       SectionHeader(header: 'Categories', onTap: () {
-        Get.to(()=>const CategoryListScreen());
+       // Get.to(()=>const CategoryListScreen());
+        Get.find<BottomNavbarController>().selectCategoryTab();
       }),
       const SizedBox(height: 18),
       const SizedBox(
