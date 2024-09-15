@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get.dart';
 
 import 'counter_controller.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({
-    super.key,
-  });
+class MyHomePage extends StatelessWidget {
+  MyHomePage({super.key,});
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
   final CounterController counterController = CounterController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,9 +33,31 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           counterController.incrementCount();
+          // title, msg
+          Get.snackbar(
+            'Successful',
+            'Added Value 1',
+            snackPosition: SnackPosition.TOP,
+            //showProgressIndicator: true
+            borderRadius: 8,
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(8),
+            icon: const Icon(Icons.notifications_active),
+            isDismissible: true,
+            duration: const Duration(seconds: 2),
+            animationDuration: const Duration(milliseconds: 200),
+          );
+          /*Get.dialog(
+             Container(
+               width: 20,
+               height: 20,
+               color: Colors.blueGrey.shade200,
+             ),
+          );*/
         },
         child: const Icon(Icons.add),
       ),
+
     );
   }
 }
