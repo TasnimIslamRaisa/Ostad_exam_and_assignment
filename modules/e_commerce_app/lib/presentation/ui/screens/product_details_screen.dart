@@ -2,8 +2,9 @@ import 'package:e_commers_app/presentation/ui/utils/app_colors.dart';
 import 'package:e_commers_app/presentation/ui/widgets/product_image_slider_widget.dart';
 import 'package:e_commers_app/presentation/ui/widgets/size_picker_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:item_count_number_button/item_count_number_button.dart';
-
+import '../../controller/bottom_nav_bar_controller.dart';
 import '../widgets/color_picker.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
@@ -15,13 +16,21 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
+  void backToHome(){
+    try {
+      Get.find<BottomNavbarController>().backToHome();
+    } catch (e) {
+      print("BottomNavbarController not found. Error: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           onPressed: (){
-           // backToHome();
+            backToHome();
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),
