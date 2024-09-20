@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:item_count_number_button/item_count_number_button.dart';
 import '../../controller/bottom_nav_bar_controller.dart';
 import '../widgets/color_picker.dart';
+import 'home_screen.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   const ProductDetailsScreen({super.key});
@@ -15,22 +16,13 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
-
-  void backToHome(){
-    try {
-      Get.find<BottomNavbarController>().backToHome();
-    } catch (e) {
-      print("BottomNavbarController not found. Error: $e");
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           onPressed: (){
-            backToHome();
+            Get.back(result:const HomeScreen());
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),

@@ -10,6 +10,7 @@ import '../widgets/horizontal_product_listView_widget.dart';
 import '../widgets/search_widget.dart';
 import '../widgets/section_header_widget.dart';
 import 'category_list_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -42,16 +43,15 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 8),
               buildCategoriesSection(),
               const SizedBox(height: 8),
-              buildSection('Popular Products', const HorizontalProductListView()),   // Reused for Popular Products
+              buildPopularProductsSection(),    // Popular Products
               const SizedBox(height: 8),
-              buildSection('Special Products', const HorizontalProductListView()),   // Reused for Special Products
+              buildSpecialProductsSection(),    // Special Products
               const SizedBox(height: 8),
-              buildSection('New Products', const HorizontalProductListView()),       // Reused for New Products
+              buildNewProductsSection(),        // New Products
             ],
           ),
         ),
       ),
-
     );
   }
 }
@@ -60,28 +60,61 @@ Widget buildCategoriesSection() {
   return Column(
     children: [
       SectionHeader(header: 'Categories', onTap: () {
-       // Get.to(()=>const CategoryListScreen());
         Get.find<BottomNavbarController>().selectCategoryTab();
       }),
       const SizedBox(height: 18),
       const SizedBox(
         height: 110,
-        child: CategoryListViewWidget(),
+        child: CategoryListViewWidget(), // ListView for Categories
       ),
     ],
   );
 }
 
-Widget buildSection(String title, Widget listView) {
+Widget buildPopularProductsSection() {
   return Column(
     children: [
-      SectionHeader(header: title, onTap: () {
-        Get.find<BottomNavbarController>().selectCategoryTab();
+      SectionHeader(header: 'Popular Products', onTap: () {
+        // Navigate to the Popular Products screen or category
+        Get.find<BottomNavbarController>().selectProductTab();
       }),
       const SizedBox(height: 18),
-      SizedBox(child: listView),
+      const SizedBox(
+        height: 220, // Set height based on your design needs
+        child: HorizontalProductListView(),  // Widget for Popular Products
+      ),
     ],
   );
 }
 
+Widget buildSpecialProductsSection() {
+  return Column(
+    children: [
+      SectionHeader(header: 'Special Products', onTap: () {
+        // Navigate to the Special Products screen or category
+        Get.find<BottomNavbarController>().selectProductTab();
+      }),
+      const SizedBox(height: 18),
+      const SizedBox(
+        height: 220, // Set height based on your design needs
+        child: HorizontalProductListView(),  // Widget for Special Products
+      ),
+    ],
+  );
+}
 
+Widget buildNewProductsSection() {
+  return Column(
+    children: [
+      SectionHeader(header: 'New Products', onTap: () {
+        // Navigate to the New Products screen or category
+        Get.find<BottomNavbarController>().selectProductTab();
+      }),
+      const SizedBox(height: 18),
+      const SizedBox(
+        height: 220, // Set height based on your design needs
+        child: HorizontalProductListView(),  // Widget for New Products
+      ),
+    ],
+  );
+}

@@ -31,7 +31,7 @@ class CategoryListScreen extends StatelessWidget {
         body: GridView.builder(
           itemCount: 25,
           gridDelegate:
-          const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+          const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4,childAspectRatio:0.75,),
           itemBuilder: (BuildContext context, int index) {
           return const CategoryCard();
           },

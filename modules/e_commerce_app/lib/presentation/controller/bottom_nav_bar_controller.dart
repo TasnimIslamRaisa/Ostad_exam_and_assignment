@@ -11,6 +11,9 @@ class BottomNavbarController extends GetxController{
   void selectCategoryTab(){
     changeIndex(1);
   }
+  void selectProductTab(){
+    changeIndex(3);
+  }
   void backToHome(){
     changeIndex(0);
   }
