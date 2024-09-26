@@ -3,11 +3,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:test_project_with_firebase/push_notification/app.dart';
-import 'package:test_project_with_firebase/local_notification/local_notification_screens/messaging_example_app.dart';
+import 'GeoLocator/geo_locator_app.dart';
 import 'GoogleMapApp/google_map_app.dart';
 import 'firebase_options.dart';
-
 // Ensure this file contains the correct Firebase configuration
 
 // Entry point for background FCM message handling
@@ -92,9 +90,11 @@ Future<void> main() async {
   /*   for local notification with firebase
   runApp(const MessagingExampleApp());
   for push notification with firebase
-  runApp(const MessagingExampleApp());  */
-  //for googleMapApp
-  runApp(const GoogleMapApp());
+  runApp(const MessagingExampleApp());
+  for googleMapApp
+  runApp(const GoogleMapApp()); */
+  //for Geo Locator
+  runApp(const GeoLocatorApp());
 }
 
 
