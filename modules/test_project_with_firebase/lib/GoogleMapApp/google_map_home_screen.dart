@@ -12,7 +12,7 @@ class GoogleMapHomeScreen extends StatefulWidget {
 
 class GoogleMapHomeScreenState extends State<GoogleMapHomeScreen> {
   final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
+  Completer<GoogleMapController>();
 
   static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
@@ -20,10 +20,10 @@ class GoogleMapHomeScreenState extends State<GoogleMapHomeScreen> {
   );
 
   static const CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
+      //bearing: 192.8334901395799,
+      target: LatLng(22.3770642, 91.8458783),
+      //tilt: 59.440717697143555,
+      zoom:15.0);
 
   @override
   Widget build(BuildContext context) {
@@ -35,17 +35,83 @@ class GoogleMapHomeScreenState extends State<GoogleMapHomeScreen> {
         elevation: 3,
       ),
       body: GoogleMap(
-        mapType: MapType.hybrid,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
+          mapType: MapType.normal,
+          initialCameraPosition: _kLake,
+          onMapCreated: (GoogleMapController controller) {
+            _controller.complete(controller);
+          },
+          zoomControlsEnabled: true,
+          myLocationButtonEnabled: true,
+          myLocationEnabled: true,
+          polylines: <Polyline>{
+            // we can use multiple polyLines
+            Polyline(polylineId: const PolylineId("sample"),
+                color: Colors.pink,
+                //width: 5,
+                jointType: JointType.round,
+                points: const [
+                  //we can use multiple points
+                  LatLng(22.3770642, 91.8458783),
+                  LatLng(22.449650982036697, 91.81913992886942),
+
+                ],
+                onTap: (){
+                  print('Tap on polyLines');
+                }
+            ),
+          },
+          circles: <Circle>{
+            Circle(
+                circleId: const CircleId('Chandga-circle'),
+                center: const LatLng(22.3770642, 91.8458783),
+                radius: 80,
+                strokeWidth: 5,
+                strokeColor: Colors.deepPurpleAccent,
+                fillColor: Colors.deepPurpleAccent.withOpacity(0.15),
+                onTap: (){
+                  print('Tap on Chandga-Circle');
+                }
+
+            ),
+            Circle(
+                circleId: const CircleId('Fateyabad-circle'),
+                center: const LatLng(22.449650982036697, 91.81913992886942),
+                radius: 80,
+                strokeWidth: 5,
+                strokeColor: Colors.deepPurpleAccent,
+                fillColor: Colors.deepPurpleAccent.withOpacity(0.15),
+                onTap: (){
+                  print('Tap on Fateyabad-Circle');
+                }
+
+            ),
+          },
+          polygons: <Polygon>{
+            Polygon(
+              polygonId: const PolygonId('polygon'),
+              visible: true,
+              fillColor: Colors.pink.withOpacity(0.15),
+              points: [],
+            ),
+          },
+          markers: <Marker>{
+            Marker(
+                markerId: const MarkerId('Marker'),
+                position: const LatLng(22.3770642, 91.8458783),
+                infoWindow: const InfoWindow(
+                  title: "Marker",
+                ),
+                icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueRose
+                )
+            ),
+          }
       ),
-      floatingActionButton: FloatingActionButton.extended(
+      /*floatingActionButton: FloatingActionButton.extended(
         onPressed: _goToTheLake,
         label: const Text('To the lake!'),
         icon: const Icon(Icons.directions_boat),
-      ),
+      ),*/
     );
   }
 
