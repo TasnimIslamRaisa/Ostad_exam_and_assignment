@@ -1,16 +1,36 @@
+// Crude counter for unique messages
+import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:test_project_with_firebase/local_notification/permission.dart';
-import 'package:test_project_with_firebase/local_notification/token_monitor.dart';
 import 'package:http/http.dart' as http;
-import '../main.dart';
-import 'local_notification_screens/application.dart';
-import 'message_list.dart';
-import 'message_view.dart';
-import 'meta_card.dart';
+import '../../main.dart';
+import '../message_list.dart';
+import '../message_view.dart';
+import '../meta_card.dart';
+import '../permission.dart';
+import '../token_monitor.dart';
+
+int _messageCount = 0;
+
+String constructFCMPayload(String? token) {
+  _messageCount++;
+  return jsonEncode({
+    'token': token,
+    'data': {
+      'via': 'FlutterFire Cloud Messaging!!!',
+      'count': _messageCount.toString(),
+    },
+    'notification': {
+      'title': 'Hello FlutterFire!',
+      'body': 'This notification (#$_messageCount) was created via FCM!',
+    },
+  });
+}
 
 class Application extends StatefulWidget {
+  const Application({super.key});
+
   @override
   State<StatefulWidget> createState() => _Application();
 }
@@ -26,15 +46,17 @@ class _Application extends State<Application> {
 
     FirebaseMessaging.instance.getInitialMessage().then(
           (value) => setState(() {
-            _resolved = true;
-            initialMessage = value?.data.toString();
-          }),
+        _resolved = true;
+        initialMessage = value?.data.toString();
+      }),
     );
 
     FirebaseMessaging.onMessage.listen(showFlutterNotification);
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('A new onMessageOpenedApp event was published!');
+      if (kDebugMode) {
+        print('A new onMessageOpenedApp event was published!');
+      }
       Navigator.pushNamed(
         context,
         '/message',
@@ -45,7 +67,9 @@ class _Application extends State<Application> {
 
   Future<void> sendPushMessage() async {
     if (_token == null) {
-      print('Unable to send FCM message, no token exists.');
+      if (kDebugMode) {
+        print('Unable to send FCM message, no token exists.');
+      }
       return;
     }
 
@@ -66,14 +90,22 @@ class _Application extends State<Application> {
   Future<void> onActionSelected(String value) async {
     switch (value) {
       case 'subscribe':
-        print('Subscribing to topic "fcm_test".');
+        if (kDebugMode) {
+          print('Subscribing to topic "fcm_test".');
+        }
         await FirebaseMessaging.instance.subscribeToTopic('fcm_test');
-        print('Successfully subscribed to topic "fcm_test".');
+        if (kDebugMode) {
+          print('Successfully subscribed to topic "fcm_test".');
+        }
         break;
       case 'unsubscribe':
-        print('Unsubscribing from topic "fcm_test".');
+        if (kDebugMode) {
+          print('Unsubscribing from topic "fcm_test".');
+        }
         await FirebaseMessaging.instance.unsubscribeFromTopic('fcm_test');
-        print('Successfully unsubscribed from topic "fcm_test".');
+        if (kDebugMode) {
+          print('Successfully unsubscribed from topic "fcm_test".');
+        }
         break;
       case 'get_apns_token':
         if (defaultTargetPlatform == TargetPlatform.iOS ||
@@ -81,7 +113,9 @@ class _Application extends State<Application> {
           String? token = await FirebaseMessaging.instance.getAPNSToken();
           print('Got APNs token: $token');
         } else {
-          print('APNs token is only supported on iOS and macOS platforms.');
+          if (kDebugMode) {
+            print('APNs token is only supported on iOS and macOS platforms.');
+          }
         }
         break;
     }

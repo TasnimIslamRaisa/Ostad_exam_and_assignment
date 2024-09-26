@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:test_project_with_firebase/app.dart';
+import 'package:test_project_with_firebase/push_notification/app.dart';
 
 
 void main() {
