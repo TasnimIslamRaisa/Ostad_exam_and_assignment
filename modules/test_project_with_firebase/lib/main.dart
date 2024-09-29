@@ -3,9 +3,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'GeoLocator/geo_locator_app.dart';
-import 'GoogleMapApp/google_map_app.dart';
 import 'firebase_options.dart';
+import 'live_score_application/live_score_application_app.dart';
+import 'live_score_application/ui/fire_base_notification_service.dart';
+import 'live_score_application/ui/flutter_local_notification_service.dart';
 // Ensure this file contains the correct Firebase configuration
 
 // Entry point for background FCM message handling
@@ -37,7 +38,7 @@ Future<void> setupFlutterNotifications() async {
 
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
-      AndroidFlutterLocalNotificationsPlugin>()
+          AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
 
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
@@ -69,7 +70,8 @@ void showFlutterNotification(RemoteMessage message) {
           channel.id,
           channel.name,
           channelDescription: channel.description,
-          icon: 'launch_background',  // Ensure this icon exists in your drawable folder
+          icon:
+          'launch_background', // Ensure this icon exists in your drawable folder
         ),
       ),
     );
@@ -77,25 +79,28 @@ void showFlutterNotification(RemoteMessage message) {
 }
 
 Future<void> main() async {
-  /*WidgetsFlutterBinding.ensureInitialized();
-
+  WidgetsFlutterBinding.ensureInitialized();
+  FlutterLocalNotificationService.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  FirebaseNotificationService.instance.initialize();
   //FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
- if (!kIsWeb) {
+/* if (!kIsWeb) {
     await setupFlutterNotifications();
   }*/
+
   /*   for local notification with firebase
   runApp(const MessagingExampleApp());
+
   for push notification with firebase
   runApp(const MessagingExampleApp());
+
   for googleMapApp
-  runApp(const GoogleMapApp()); */
-  //for Geo Locator
-  runApp(const GeoLocatorApp());
+  runApp(const GoogleMapApp());
+    //for Geo Locator
+  //runApp(const GeoLocatorApp());*/
+
+  runApp(const LiveScoreApp());
 }
-
-
-
