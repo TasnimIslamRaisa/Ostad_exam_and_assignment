@@ -1,4 +1,4 @@
-class Data {
+class SliderData {
   int? _id;
   String? _title;
   String? _shortDes;
@@ -8,15 +8,15 @@ class Data {
   String? _createdAt;
   String? _updatedAt;
 
-  Data(
+  SliderData(
       {int? id,
-        String? title,
-        String? shortDes,
-        String? price,
-        String? image,
-        int? productId,
-        String? createdAt,
-        String? updatedAt}) {
+      String? title,
+      String? shortDes,
+      String? price,
+      String? image,
+      int? productId,
+      String? createdAt,
+      String? updatedAt}) {
     if (id != null) {
       this._id = id;
     }
@@ -44,23 +44,38 @@ class Data {
   }
 
   int? get id => _id;
+
   set id(int? id) => _id = id;
+
   String? get title => _title;
+
   set title(String? title) => _title = title;
+
   String? get shortDes => _shortDes;
+
   set shortDes(String? shortDes) => _shortDes = shortDes;
+
   String? get price => _price;
+
   set price(String? price) => _price = price;
+
   String? get image => _image;
+
   set image(String? image) => _image = image;
+
   int? get productId => _productId;
+
   set productId(int? productId) => _productId = productId;
+
   String? get createdAt => _createdAt;
+
   set createdAt(String? createdAt) => _createdAt = createdAt;
+
   String? get updatedAt => _updatedAt;
+
   set updatedAt(String? updatedAt) => _updatedAt = updatedAt;
 
-  Data.fromJson(Map<String, dynamic> json) {
+  SliderData.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
     _title = json['title'];
     _shortDes = json['short_des'];
@@ -83,4 +98,9 @@ class Data {
     data['updated_at'] = this._updatedAt;
     return data;
   }
+
+  static List<SliderData> fromJsonList(List<dynamic> jsonList) {
+    return jsonList.map((json) => SliderData.fromJson(json)).toList();
+  }
+
 }

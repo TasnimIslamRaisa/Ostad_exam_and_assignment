@@ -1,4 +1,5 @@
 import 'package:e_commers_app/presentation/controller/bottom_nav_bar_controller.dart';
+import 'package:e_commers_app/presentation/controller/slider_list_controller.dart';
 import 'package:e_commers_app/presentation/ui/screens/product_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,6 +20,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Get.find<SliderListController>().getSliderList();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
