@@ -1,4 +1,5 @@
 import 'package:e_commers_app/presentation/controller/bottom_nav_bar_controller.dart';
+import 'package:e_commers_app/presentation/controller/product_list_controller.dart';
 import 'package:e_commers_app/presentation/ui/screens/cart_screen.dart';
 import 'package:e_commers_app/presentation/ui/screens/category_list_screen.dart';
 import 'package:e_commers_app/presentation/ui/screens/home_screen.dart';
@@ -31,6 +32,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
     super.initState();
     Get.find<SliderListController>().getSliderList();
     Get.find<CategoryListController>().getCategoryList();
+    Get.find<ProductListController>().getProductList();
   }
 
   @override

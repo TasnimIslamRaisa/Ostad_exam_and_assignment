@@ -1,18 +1,20 @@
 import 'package:e_commers_app/presentation/ui/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import '../../../data/models/product_model.dart';
 import '../utils/app_colors.dart';
 import '../utils/assets_path.dart';
 
 class ProductCardWidget extends StatelessWidget {
-  const ProductCardWidget({super.key});
+  final ProductModel product;
+
+  const ProductCardWidget({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        Get.to(()=>const ProductDetailsScreen());
+      onTap: () {
+        Get.to(() => ProductDetailsScreen(product: product));
       },
       child: Card(
         elevation: 3,
@@ -31,9 +33,9 @@ class ProductCardWidget extends StatelessWidget {
                     topLeft: Radius.circular(12),
                     topRight: Radius.circular(12),
                   ),
-                  image: const DecorationImage(
-                    image: AssetImage(AssetsPath.productImg),
-                    fit: BoxFit.scaleDown,
+                  image: DecorationImage(
+                    image: NetworkImage(product.image ?? AssetsPath.productImg),
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -43,16 +45,24 @@ class ProductCardWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Product Name"),
+                    Text(
+                      product.title ?? "Unknown Product",
+                      style: const TextStyle(
+                        fontSize: 14,
+                      ),
+                      overflow: TextOverflow.ellipsis, // To handle long text
+                    ),
                     const SizedBox(height: 4),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          '\$100',
-                          style: TextStyle(
-                            color: AppColors.themeColor,
-                            fontWeight: FontWeight.bold,
+                        Expanded( // To avoid overflow for long prices
+                          child: Text(
+                            '\$${product.price ?? "N/A"}',
+                            style: const TextStyle(
+                              color: AppColors.themeColor,
+                            ),
+                            overflow: TextOverflow.ellipsis, // To handle long prices
                           ),
                         ),
                         Wrap(
@@ -63,7 +73,7 @@ class ProductCardWidget extends StatelessWidget {
                               color: Colors.yellow.shade700,
                               size: 16,
                             ),
-                            const Text('4.8'),
+                            Text('${product.star ?? 0.0}'),
                           ],
                         ),
                         // Favorite Button

@@ -5,16 +5,16 @@ import 'brand_model.dart';
 
 class ProductListModel {
   String? msg;
-  List<ProductModel>? data;
+  List<ProductModel>? productList;
 
-  ProductListModel({this.msg, this.data});
+  ProductListModel({this.msg, this.productList});
 
   ProductListModel.fromJson(Map<String, dynamic> json) {
     msg = json['msg'];
     if (json['data'] != null) {
-      data = <ProductModel>[];
+      productList = <ProductModel>[];
       json['data'].forEach((v) {
-        data!.add(new ProductModel.fromJson(v));
+        productList!.add(new ProductModel.fromJson(v));
       });
     }
   }
@@ -22,8 +22,8 @@ class ProductListModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['msg'] = this.msg;
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    if (this.productList != null) {
+      data['data'] = this.productList!.map((v) => v.toJson()).toList();
     }
     return data;
   }

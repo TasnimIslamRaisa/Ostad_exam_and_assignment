@@ -1,8 +1,11 @@
 import 'package:e_commers_app/presentation/ui/widgets/product_card_widget.dart';
 import 'package:flutter/material.dart';
+import '../../../data/models/product_model.dart';
 
 class HorizontalProductListView extends StatelessWidget {
-  const HorizontalProductListView({super.key});
+  final List<ProductModel> products; // Accept a list of products
+
+  const HorizontalProductListView({super.key, required this.products});
 
   @override
   Widget build(BuildContext context) {
@@ -10,9 +13,13 @@ class HorizontalProductListView extends StatelessWidget {
       height: 180,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemCount: 20,
+        itemCount: products.length,
         itemBuilder: (context, index) {
-          return const ProductCardWidget();
+          // Get product at the current index
+          ProductModel product = products[index];
+
+          // Pass the product to the ProductCardWidget
+          return ProductCardWidget(product: product);
         },
         separatorBuilder: (_, __) => const SizedBox(width: 8),
       ),

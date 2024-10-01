@@ -1,3 +1,4 @@
+import 'package:e_commers_app/data/models/product_model.dart';
 import 'package:e_commers_app/presentation/ui/utils/app_colors.dart';
 import 'package:e_commers_app/presentation/ui/widgets/product_image_slider_widget.dart';
 import 'package:e_commers_app/presentation/ui/widgets/size_picker_widget.dart';
@@ -9,7 +10,7 @@ import '../widgets/color_picker.dart';
 import 'home_screen.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  const ProductDetailsScreen({super.key});
+  const ProductDetailsScreen({super.key, required ProductModel product});
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
