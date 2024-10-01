@@ -1,6 +1,6 @@
 import 'package:e_commers_app/presentation/controller/bottom_nav_bar_controller.dart';
-import 'package:e_commers_app/presentation/controller/slider_list_controller.dart';
-import 'package:e_commers_app/presentation/ui/screens/product_list_screen.dart';
+import 'package:e_commers_app/presentation/controller/category_list_controller.dart';
+import 'package:e_commers_app/presentation/ui/widgets/centered_circularpogress.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -10,7 +10,6 @@ import '../widgets/home_banner_widget.dart';
 import '../widgets/horizontal_product_listView_widget.dart';
 import '../widgets/search_widget.dart';
 import '../widgets/section_header_widget.dart';
-import 'category_list_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,12 +19,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    Get.find<SliderListController>().getSliderList();
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,15 +57,25 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 Widget buildCategoriesSection() {
+  //bool inprogress=false;
   return Column(
     children: [
       SectionHeader(header: 'Categories', onTap: () {
         Get.find<BottomNavbarController>().selectCategoryTab();
       }),
       const SizedBox(height: 18),
-      const SizedBox(
+      SizedBox(
         height: 110,
-        child: CategoryListViewWidget(), // ListView for Categories
+        child: GetBuilder<CategoryListController>(
+          builder: (categoryListController) {
+            return Visibility(
+              visible: !categoryListController.inprogress,
+                replacement: const CenteredCircularpogress(),
+                child: CategoryListViewWidget(
+                  categoryList: categoryListController.categoryList,
+                ));
+          }
+        ), // ListView for Categories
       ),
     ],
   );

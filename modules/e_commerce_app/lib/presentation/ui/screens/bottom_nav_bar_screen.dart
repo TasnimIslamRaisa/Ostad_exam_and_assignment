@@ -7,6 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../../controller/category_list_controller.dart';
+import '../../controller/slider_list_controller.dart';
+
 class BottomNavBarScreen extends StatefulWidget {
   const BottomNavBarScreen({super.key});
 
@@ -22,6 +25,14 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
     CartScreen(),
     WishListScreen(),
   ];
+  //to reduce api call again and again we used this here instead of homescreen
+  @override
+  void initState() {
+    super.initState();
+    Get.find<SliderListController>().getSliderList();
+    Get.find<CategoryListController>().getCategoryList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<BottomNavbarController>(

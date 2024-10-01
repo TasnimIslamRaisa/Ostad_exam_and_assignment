@@ -1,3 +1,5 @@
+import 'package:e_commers_app/presentation/controller/category_list_controller.dart';
+import 'package:e_commers_app/presentation/ui/widgets/centered_circularpogress.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -28,13 +30,31 @@ class CategoryListScreen extends StatelessWidget {
           ),
           title: const Text('Categories'),
         ),
-        body: GridView.builder(
-          itemCount: 25,
-          gridDelegate:
-          const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4,childAspectRatio:0.75,),
-          itemBuilder: (BuildContext context, int index) {
-          return const CategoryCard();
+        body: RefreshIndicator(
+          onRefresh: () async {
+            Get.find<CategoryListController>().getCategoryList();
           },
+          child: GetBuilder<CategoryListController>(
+            builder: (categoryListController) {
+              return GridView.builder(
+                itemCount: categoryListController.categoryList.length,
+                gridDelegate:
+                const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4,childAspectRatio:0.75,),
+                itemBuilder: (BuildContext context, int index) {
+                  if(categoryListController.inprogress){
+                    return const CenteredCircularpogress();
+                  } else if(categoryListController.errorMsg!= null){
+                    return Center(
+                      child: Text(categoryListController.errorMsg !),
+                    );
+                  }
+                  return CategoryCard(
+                  categoryModel: categoryListController.categoryList[index],
+                );
+                },
+              );
+            }
+          ),
         ),
       ),
     );
