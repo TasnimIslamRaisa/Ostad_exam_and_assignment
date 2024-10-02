@@ -25,10 +25,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Fetch product lists
-    productListController.getProductByRemark("popular");
-    productListController.getProductByRemark("special");
-    productListController.getProductByRemark("new"); // You can call different methods to fetch different types of products
   }
 
   @override
