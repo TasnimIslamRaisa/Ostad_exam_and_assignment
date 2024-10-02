@@ -26,7 +26,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     // Fetch product lists
-    productListController.getProductList(); // You can call different methods to fetch different types of products
+    productListController.getProductByRemark("popular");
+    productListController.getProductByRemark("special");
+    productListController.getProductByRemark("new"); // You can call different methods to fetch different types of products
   }
 
   @override
@@ -65,7 +67,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
 Widget buildCategoriesSection() {
   return Column(
     children: [
@@ -100,12 +101,12 @@ Widget buildPopularProductsSection() {
       const SizedBox(height: 18),
       GetBuilder<ProductListController>(
         builder: (productListController) {
-          if (productListController.inprogress) {
+          if (productListController.popularProductInprogress) {
             return const Center(child: CircularProgressIndicator());
           }
           return SizedBox(
             height: 220,
-            child: HorizontalProductListView(products: productListController.productList), // Pass popular products here
+            child: HorizontalProductListView(products: productListController.propularproductList), // Pass popular products here
           );
         },
       ),
@@ -122,12 +123,12 @@ Widget buildSpecialProductsSection() {
       const SizedBox(height: 18),
       GetBuilder<ProductListController>(
         builder: (productListController) {
-          if (productListController.inprogress) {
+          if (productListController.specialProductInprogress) {
             return const Center(child: CircularProgressIndicator());
           }
           return SizedBox(
             height: 220,
-            child: HorizontalProductListView(products: productListController.productList), // Pass special products here
+            child: HorizontalProductListView(products: productListController.specialproductList), // Pass special products here
           );
         },
       ),
@@ -144,12 +145,12 @@ Widget buildNewProductsSection() {
       const SizedBox(height: 18),
       GetBuilder<ProductListController>(
         builder: (productListController) {
-          if (productListController.inprogress) {
+          if (productListController.newProductInprogress) {
             return const Center(child: CircularProgressIndicator());
           }
           return SizedBox(
             height: 220,
-            child: HorizontalProductListView(products: productListController.productList), // Pass new products here
+            child: HorizontalProductListView(products: productListController.newproductList), // Pass new products here
           );
         },
       ),

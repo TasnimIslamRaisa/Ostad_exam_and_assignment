@@ -26,20 +26,37 @@ class ProductListScreen extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: GetBuilder<ProductListController>(
           builder: (controller) {
-            if (controller.inprogress) {
+            // Determine the product list and loading state based on the category
+            List<ProductModel> productList;
+            bool inprogress;
+
+            if (categoryName == "Popular Products") {
+              productList = controller.propularproductList;
+              inprogress = controller.popularProductInprogress;
+            } else if (categoryName == "New Products") {
+              productList = controller.newproductList;
+              inprogress = controller.newProductInprogress;
+            } else if (categoryName == "Special Products") {
+              productList = controller.specialproductList;
+              inprogress = controller.specialProductInprogress;
+            } else {
+              productList = [];
+              inprogress = false;
+            }
+            if (inprogress) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
             }
 
-            if (controller.productList.isEmpty) {
+            if (productList.isEmpty) {
               return const Center(
                 child: Text("No products available"),
               );
             }
 
             return GridView.builder(
-              itemCount: controller.productList.length,
+              itemCount: productList.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
                 childAspectRatio: 0.70,
@@ -48,7 +65,7 @@ class ProductListScreen extends StatelessWidget {
               ),
               itemBuilder: (BuildContext context, int index) {
                 // Get product at the current index
-                ProductModel product = controller.productList[index];
+                ProductModel product = productList[index];
 
                 // Pass the product to the ProductCardWidget
                 return ProductCardWidget(product: product);

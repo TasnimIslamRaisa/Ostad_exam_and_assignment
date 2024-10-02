@@ -32,7 +32,9 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
     super.initState();
     Get.find<SliderListController>().getSliderList();
     Get.find<CategoryListController>().getCategoryList();
-    Get.find<ProductListController>().getProductList();
+    Get.find<ProductListController>().getProductByRemark("popular");
+    Get.find<ProductListController>().getProductByRemark("new");
+    Get.find<ProductListController>().getProductByRemark("special");
   }
 
   @override
