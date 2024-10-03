@@ -5,6 +5,9 @@ import 'package:e_commers_app/presentation/ui/widgets/centered_circularpogress.d
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import '../../controller/new_product_list_controller.dart';
+import '../../controller/popular_product_list_controller.dart';
+import '../../controller/special_product_list_controller.dart';
 import '../utils/assets_path.dart';
 import '../widgets/category_listView_widget.dart';
 import '../widgets/home_banner_widget.dart';
@@ -20,8 +23,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final ProductListController productListController = Get.find<ProductListController>();
-
   @override
   void initState() {
     super.initState();
@@ -37,7 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.person)),
           IconButton(onPressed: () {}, icon: const Icon(Icons.phone)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications_active)),
+          IconButton(
+              onPressed: () {}, icon: const Icon(Icons.notifications_active)),
         ],
       ),
       body: SingleChildScrollView(
@@ -51,11 +53,11 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 8),
               buildCategoriesSection(),
               const SizedBox(height: 8),
-              buildPopularProductsSection(),    // Popular Products
+              buildPopularProductsSection(), // Popular Products
               const SizedBox(height: 8),
-              buildSpecialProductsSection(),    // Special Products
+              buildSpecialProductsSection(), // Special Products
               const SizedBox(height: 8),
-              buildNewProductsSection(),        // New Products
+              buildNewProductsSection(), // New Products
             ],
           ),
         ),
@@ -63,26 +65,27 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
 Widget buildCategoriesSection() {
   return Column(
     children: [
-      SectionHeader(header: 'Categories', onTap: () {
-        Get.find<BottomNavbarController>().selectCategoryTab();
-      }),
+      SectionHeader(
+          header: 'Categories',
+          onTap: () {
+            Get.find<BottomNavbarController>().selectCategoryTab();
+          }),
       const SizedBox(height: 18),
       SizedBox(
         height: 110,
         child: GetBuilder<CategoryListController>(
             builder: (categoryListController) {
-              return Visibility(
-                  visible: !categoryListController.inprogress,
-                  replacement: const CenteredCircularpogress(),
-                  child: CategoryListViewWidget(
-                    categoryList: categoryListController.categoryList,
-                  )
-              );
-            }
-        ), // ListView for Categories
+          return Visibility(
+              visible: !categoryListController.inprogress,
+              replacement: const CenteredCircularpogress(),
+              child: CategoryListViewWidget(
+                categoryList: categoryListController.categoryList,
+              ));
+        }), // ListView for Categories
       ),
     ],
   );
@@ -91,18 +94,22 @@ Widget buildCategoriesSection() {
 Widget buildPopularProductsSection() {
   return Column(
     children: [
-      SectionHeader(header: 'Popular Products', onTap: () {
-        Get.find<BottomNavbarController>().selectProductTab();
-      }),
+      SectionHeader(
+          header: 'Popular Products',
+          onTap: () {
+            Get.find<BottomNavbarController>().selectProductTab();
+          }),
       const SizedBox(height: 18),
-      GetBuilder<ProductListController>(
-        builder: (productListController) {
-          if (productListController.popularProductInprogress) {
+      GetBuilder<PopularProductListController>(
+        builder: (popularProductListController) {
+          if (popularProductListController.inprogress) {
             return const Center(child: CircularProgressIndicator());
           }
           return SizedBox(
             height: 220,
-            child: HorizontalProductListView(products: productListController.propularproductList), // Pass popular products here
+            child: HorizontalProductListView(
+                products: popularProductListController
+                    .productList), // Pass popular products here
           );
         },
       ),
@@ -113,18 +120,22 @@ Widget buildPopularProductsSection() {
 Widget buildSpecialProductsSection() {
   return Column(
     children: [
-      SectionHeader(header: 'Special Products', onTap: () {
-        Get.find<BottomNavbarController>().selectProductTab();
-      }),
+      SectionHeader(
+          header: 'Special Products',
+          onTap: () {
+            Get.find<BottomNavbarController>().selectProductTab();
+          }),
       const SizedBox(height: 18),
-      GetBuilder<ProductListController>(
-        builder: (productListController) {
-          if (productListController.specialProductInprogress) {
+      GetBuilder<SpecialProductListController>(
+        builder: (specialProductListController) {
+          if (specialProductListController.inprogress) {
             return const Center(child: CircularProgressIndicator());
           }
           return SizedBox(
             height: 220,
-            child: HorizontalProductListView(products: productListController.specialproductList), // Pass special products here
+            child: HorizontalProductListView(
+                products: specialProductListController
+                    .productList), // Pass special products here
           );
         },
       ),
@@ -135,18 +146,22 @@ Widget buildSpecialProductsSection() {
 Widget buildNewProductsSection() {
   return Column(
     children: [
-      SectionHeader(header: 'New Products', onTap: () {
-        Get.find<BottomNavbarController>().selectProductTab();
-      }),
+      SectionHeader(
+          header: 'New Products',
+          onTap: () {
+            Get.find<BottomNavbarController>().selectProductTab();
+          }),
       const SizedBox(height: 18),
-      GetBuilder<ProductListController>(
-        builder: (productListController) {
-          if (productListController.newProductInprogress) {
+      GetBuilder<NewProductListController>(
+        builder: (newProductListController) {
+          if (newProductListController.inprogress) {
             return const Center(child: CircularProgressIndicator());
           }
           return SizedBox(
             height: 220,
-            child: HorizontalProductListView(products: productListController.newproductList), // Pass new products here
+            child: HorizontalProductListView(
+                products: newProductListController
+                    .productList), // Pass new products here
           );
         },
       ),

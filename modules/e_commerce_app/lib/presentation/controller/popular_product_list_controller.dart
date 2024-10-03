@@ -6,7 +6,7 @@ import 'package:e_commers_app/data/utils/urls.dart';
 import 'package:get/get.dart';
 import '../../data/models/product_model.dart';
 
-class SpecialProductListController extends GetxController {
+class PopularProductListController extends GetxController {
   bool _inProgress = false;
 
   bool get inprogress =>_inProgress;
@@ -19,14 +19,14 @@ class SpecialProductListController extends GetxController {
 
   List<ProductModel>  get productList=>_productList;
 
-  Future<bool> getSpecialProductList() async {
+  Future<bool> getPopularProductList() async {
 
     bool isSuccess =false;
     _inProgress = true;
     update();
 
     final NetworkResponse response =
-    await Get.find<NetworkCaller>().getRequest(url: Urls.productListByRemark('special'));
+    await Get.find<NetworkCaller>().getRequest(url: Urls.productListByRemark('popular'));
 
     if(response.isSuccess){
       _errorMsg=null;

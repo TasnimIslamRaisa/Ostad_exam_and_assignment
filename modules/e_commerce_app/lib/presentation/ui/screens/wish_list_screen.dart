@@ -6,8 +6,10 @@ import 'package:get/get_core/src/get_main.dart';
 import '../../controller/bottom_nav_bar_controller.dart';
 
 class WishListScreen extends StatelessWidget {
-  const WishListScreen({super.key,});
-  void backToHome(){
+  const WishListScreen({
+    super.key,
+  });
+  void backToHome() {
     Get.find<BottomNavbarController>().backToHome();
   }
 
@@ -15,9 +17,17 @@ class WishListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: (value){
+      onPopInvoked: (value) {
         backToHome();
       },
-        child: const ProductListScreen(categoryName: 'Wish List',));
+      child: Text('hi'),
+      /*
+        const ProductListScreen(
+          categoryName: 'Wish List',
+          category: 0,
+        )
+
+      * */
+    );
   }
 }

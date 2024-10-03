@@ -17,7 +17,7 @@ class NewProductListController extends GetxController {
 
   String? get errorMsg=>_errorMsg;
 
-  List<ProductModel>  get propularproductList=>_productList;
+  List<ProductModel>  get productList=>_productList;
 
   Future<bool> getNewProductList() async {
 

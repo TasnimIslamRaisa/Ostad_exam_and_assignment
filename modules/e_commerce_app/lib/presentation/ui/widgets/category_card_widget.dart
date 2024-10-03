@@ -15,8 +15,9 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Get.to(()=>ProductListScreen(categoryName: categoryModel.categoryName?? "Unknown"));
-      },
+        Get.to(() =>
+                ProductListScreen(category: categoryModel));
+                },
       child: Column(
         children: [
           Container(
