@@ -1,6 +1,5 @@
 import 'package:e_commers_app/presentation/controller/bottom_nav_bar_controller.dart';
 import 'package:e_commers_app/presentation/controller/category_list_controller.dart';
-import 'package:e_commers_app/presentation/controller/product_list_controller.dart'; // Add this import
 import 'package:e_commers_app/presentation/ui/widgets/centered_circularpogress.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

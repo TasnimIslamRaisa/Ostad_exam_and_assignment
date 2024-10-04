@@ -11,7 +11,7 @@ import 'package:get/get_core/src/get_main.dart';
 
 import '../../controller/category_list_controller.dart';
 import '../../controller/popular_product_list_controller.dart';
-import '../../controller/product_list_by_category_contrller.dart';
+import '../../controller/product_list_by_category_controller.dart';
 import '../../controller/slider_list_controller.dart';
 import '../../controller/special_product_list_controller.dart';
 
@@ -36,8 +36,6 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
     super.initState();
     Get.find<SliderListController>().getSliderList();
     Get.find<CategoryListController>().getCategoryList();
-    /*Get.find<SpecialProductListController>().getSpecialProductList();
-    Get.find<NewProductListController>().getNewProductList();*/
     //Get.find<ProductListByCategoryController>().getProductListByCategory();
     Get.find<PopularProductListController>().getPopularProductList();
     Get.find<NewProductListController>().getNewProductList();

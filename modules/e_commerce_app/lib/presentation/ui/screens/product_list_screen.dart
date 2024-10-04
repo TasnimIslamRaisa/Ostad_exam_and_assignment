@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../data/models/category_model.dart';  // Assuming CategoryModel is imported correctly
 import '../../controller/bottom_nav_bar_controller.dart';
-import '../../controller/product_list_by_category_contrller.dart';
-import '../../controller/product_list_controller.dart'; // Assuming the controller is correct
+import '../../controller/product_list_by_category_controller.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key, required this.category});
@@ -56,13 +55,12 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 child: Text('No products available'),
               );
             }
-
             // Display the product list in a GridView
             return GridView.builder(
               itemCount: productListByCategoryController.productList.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
-                childAspectRatio: 0.70,
+                childAspectRatio: 0.62,
                 mainAxisSpacing: 8,
                 crossAxisSpacing: 8,
               ),

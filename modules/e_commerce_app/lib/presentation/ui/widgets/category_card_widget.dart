@@ -2,6 +2,7 @@ import 'package:e_commers_app/data/models/category_model.dart';
 import 'package:e_commers_app/presentation/ui/screens/product_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../controller/product_list_by_category_controller.dart';
 import '../utils/app_colors.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -15,8 +16,9 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Get.to(() =>
-                ProductListScreen(category: categoryModel));
+        Get.find<ProductListByCategoryController>()
+            .getProductListByCategory(categoryModel.id!);
+        Get.to(() => ProductListScreen(category: categoryModel));
                 },
       child: Column(
         children: [

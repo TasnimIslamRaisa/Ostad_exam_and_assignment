@@ -20,18 +20,19 @@ class ProductCardWidget extends StatelessWidget {
         elevation: 3,
         color: Colors.white,
         child: SizedBox(
-          width: 120,
+          width: 160,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Product Image Section
               Container(
+                width: 160,
                 height: 100,
                 decoration: BoxDecoration(
                   color: AppColors.themeColor.withOpacity(0.2),
                   borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12),
+                    topLeft: Radius.circular(8),
+                    topRight: Radius.circular(8),
                   ),
                   image: DecorationImage(
                     image: NetworkImage(product.image ?? AssetsPath.productImg),
@@ -50,7 +51,7 @@ class ProductCardWidget extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 14,
                       ),
-                      overflow: TextOverflow.ellipsis, // To handle long text
+                      //overflow: TextOverflow.ellipsis, // To handle long text
                     ),
                     const SizedBox(height: 4),
                     Row(
@@ -61,8 +62,9 @@ class ProductCardWidget extends StatelessWidget {
                             '\$${product.price ?? "N/A"}',
                             style: const TextStyle(
                               color: AppColors.themeColor,
+                              fontSize: 12
                             ),
-                            overflow: TextOverflow.ellipsis, // To handle long prices
+                            //overflow: TextOverflow.ellipsis, // To handle long prices
                           ),
                         ),
                         Wrap(
