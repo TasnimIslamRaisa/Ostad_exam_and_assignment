@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ColorPicker extends StatefulWidget {
-  const ColorPicker({super.key, required this.colors, required this.onColorSelected});
+  const ColorPicker(
+      {super.key, required this.colors, required this.onColorSelected});
+
   final List<Color> colors;
   final Function(Color) onColorSelected;
 
@@ -10,32 +12,38 @@ class ColorPicker extends StatefulWidget {
 }
 
 class _ColorPickerState extends State<ColorPicker> {
-  late Color _selectedColor=widget.colors.first;
+  late Color _selectedColor = widget.colors.first;
+
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment:CrossAxisAlignment.start ,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Color',style: Theme.of(context).textTheme.titleMedium?.copyWith(fontSize: 22),),
-        const SizedBox(height: 16,),
+        Text('Color', style: Theme.of(context).textTheme.titleMedium),
+        const SizedBox(height: 16),
         Wrap(
-          spacing: 12,
-          children:
-            widget.colors.map((item){
+          spacing: 8,
+          children: widget.colors.map((item) {
             return GestureDetector(
-              onTap: (){
-                _selectedColor=item;
+              onTap: () {
+                _selectedColor = item;
+                widget.onColorSelected(item);
                 setState(() {});
               },
               child: CircleAvatar(
                 backgroundColor: item,
                 radius: 16,
-                child: _selectedColor==item? Icon(Icons.check,color: Colors.white,) : null,
-
+                child: _selectedColor == item
+                    ? const Icon(
+                  Icons.check,
+                  color: Colors.white,
+                )
+                    : null,
               ),
             );
-            }).toList(),
-        ) ],
+          }).toList(),
+        )
+      ],
     );
   }
 }

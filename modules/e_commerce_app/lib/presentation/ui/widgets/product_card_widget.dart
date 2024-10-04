@@ -14,7 +14,7 @@ class ProductCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => ProductDetailsScreen(product: product));
+        Get.to(() => ProductDetailsScreen(productId: product.id!,));
       },
       child: Card(
         elevation: 3,

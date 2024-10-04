@@ -3,6 +3,8 @@ import 'package:e_commers_app/presentation/controller/bottom_nav_bar_controller.
 import 'package:e_commers_app/presentation/controller/category_list_controller.dart';
 import 'package:e_commers_app/presentation/controller/new_product_list_controller.dart';
 import 'package:e_commers_app/presentation/controller/popular_product_list_controller.dart';
+import 'package:e_commers_app/presentation/controller/product_details_by_id_controller.dart';
+import 'package:e_commers_app/presentation/controller/product_details_controller.dart';
 import 'package:e_commers_app/presentation/controller/product_list_by_category_controller.dart';
 import 'package:e_commers_app/presentation/controller/product_list_controller.dart';
 import 'package:e_commers_app/presentation/controller/slider_list_controller.dart';
@@ -23,6 +25,9 @@ class ControllerBinder extends Bindings{
     Get.lazyPut(()=>PopularProductListController());
     Get.lazyPut(()=>SpecialProductListController());
     Get.lazyPut(()=>NewProductListController());
+    Get.put(ProductDetailsByIdController());
+    Get.put(ProductDetailsController());
+
   }
 
 }

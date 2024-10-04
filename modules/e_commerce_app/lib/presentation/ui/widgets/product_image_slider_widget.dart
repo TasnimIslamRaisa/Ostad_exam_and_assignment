@@ -3,14 +3,20 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/app_colors.dart';
-import '../utils/assets_path.dart';
 
-class ProductImgSliderWidget extends StatelessWidget {
-  ProductImgSliderWidget({
-    super.key,
+class ProductImageSlider extends StatefulWidget {
+  const ProductImageSlider({
+    super.key, required this.sliderUrls,
   });
 
-  final ValueNotifier<int> _selectedIndex=ValueNotifier(0);
+  final List<String> sliderUrls;
+
+  @override
+  State<ProductImageSlider> createState() => _ProductImageSliderState();
+}
+
+class _ProductImageSliderState extends State<ProductImageSlider> {
+  final ValueNotifier<int> _selectedIndex = ValueNotifier(0);
 
   @override
   Widget build(BuildContext context) {
@@ -18,55 +24,57 @@ class ProductImgSliderWidget extends StatelessWidget {
       children: [
         CarouselSlider(
           options: CarouselOptions(
-              height: 220.0,
-              onPageChanged: (index,reason){
-                _selectedIndex.value=index;
-              },
+            height: 220,
+            onPageChanged: (index, reason) {
+              _selectedIndex.value = index;
+            },
             viewportFraction: 1,
-
           ),
-          items: [1,2,3,4,5].map((i) {
+          items: widget.sliderUrls.map((imageUrl) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
-                  //  width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      image: const DecorationImage(image: AssetImage(AssetsPath.productImg)),
-                      color: Colors.grey.shade100
-                    ),
-                   // child: Text('text $i', style: const TextStyle(fontSize: 16.0),)
+                  decoration: BoxDecoration(
+                      color: Colors.grey.shade100,
+                      image: DecorationImage(
+                          image: NetworkImage(imageUrl))),
                 );
               },
             );
           }).toList(),
         ),
         Positioned(
-          bottom: 16,
+          bottom: 12,
           left: 0,
           right: 0,
           child: ValueListenableBuilder(
-              valueListenable:_selectedIndex,
-              builder: (context,currentIndex,_) {
+              valueListenable: _selectedIndex,
+              builder: (context, currentIndex, _) {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    for(int i=0;i<5;i++)
+                    for (int i = 0; i < widget.sliderUrls.length; i++)
                       Container(
-                        width: 12,
                         height: 12,
-                        margin:const EdgeInsets.only(right: 5),
+                        width: 12,
+                        margin: const EdgeInsets.only(right: 4),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            border: Border.all(color: Colors.grey),
-                            color: _selectedIndex.value==i? AppColors.themeColor : Colors.white
-                        ),
-                      ),
+                            color: currentIndex == i
+                                ? AppColors.themeColor
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(12)),
+                      )
                   ],
                 );
-              }
-          ),
-        ),
+              }),
+        )
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    _selectedIndex.dispose();
+    super.dispose();
   }
 }

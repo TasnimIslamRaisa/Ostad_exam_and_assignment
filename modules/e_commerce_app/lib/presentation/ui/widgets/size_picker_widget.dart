@@ -5,7 +5,7 @@ class SizePicker extends StatefulWidget {
   const SizePicker({
     super.key,
     required this.size,
-    required this.onSizeSelected,
+    required this.onSizeSelected, required List<String> sizes,
   });
 
   final List<String> size;
