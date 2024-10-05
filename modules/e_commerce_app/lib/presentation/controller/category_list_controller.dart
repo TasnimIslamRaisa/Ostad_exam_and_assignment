@@ -7,10 +7,10 @@ import '../../data/models/category_list_model.dart';
 
 class CategoryListController extends GetxController {
   bool _inprogress = false;
-  bool get inprogress =>_inprogress;
-
   String? _errorMsg;
   List<CategoryModel> _categoryList=[];
+
+  bool get inprogress =>_inprogress;
   String? get errorMsg=>_errorMsg;
   List<CategoryModel>  get categoryList=>_categoryList;
 
