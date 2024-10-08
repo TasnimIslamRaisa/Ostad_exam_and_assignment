@@ -1,3 +1,5 @@
+import 'package:e_commers_app/presentation/controller/auth_controller.dart';
+import 'package:e_commers_app/presentation/ui/screens/email_varification_screen.dart';
 import 'package:e_commers_app/presentation/ui/widgets/centered_circularpogress.dart';
 import 'package:e_commers_app/presentation/ui/widgets/color_picker.dart';
 import 'package:flutter/material.dart';
@@ -233,7 +235,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           SizedBox(
             width: 140,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: _onTabAddToCard,
               child: const Text('Add To Cart'),
             ),
           ),
@@ -241,4 +243,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       ),
     );
   }
+
+  Future<void> _onTabAddToCard() async{
+    bool isLoggedInUser=await Get.find<AuthController>().isLoggedIn();
+    if(isLoggedInUser){
+
+    } else {
+      Get.to(()=>EmailVarificationScreen());
+    }
+
+  }
+
+
 }
