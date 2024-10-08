@@ -28,13 +28,11 @@ class CategoryCard extends StatelessWidget {
               color: AppColors.themeColor.withOpacity(0.2),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Icon(
-              //(categoryModel.categoryImg?? Icon(Icons.battery_unknown_rounded)) as IconData?,
-              Icons.computer,
-              color: AppColors.themeColor,
-              size: 48,
+            //color: AppColors.themeColor,
+            child:Image.network(categoryModel.categoryImg ?? ' ',width: 48,height: 48,) ,
+              //size: 48,
             ),
-          ),
+
           const SizedBox(height: 4),
           Text(
             categoryModel.categoryName?? "Unknown",

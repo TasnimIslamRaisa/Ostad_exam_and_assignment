@@ -1,4 +1,3 @@
-import 'package:e_commers_app/data/models/category_model.dart';
 import 'package:e_commers_app/data/models/network_response.dart';
 import 'package:e_commers_app/data/models/product_list_model.dart';
 import 'package:e_commers_app/data/services/network_caller.dart';

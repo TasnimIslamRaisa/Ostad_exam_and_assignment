@@ -36,6 +36,8 @@ class _SizePickerState extends State<SizePicker> {
                 });
               },
               child: Container(
+                width: 40,
+                height: 40,
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   border:_selectedSize==item? null :  Border.all(color: Colors.grey),
@@ -44,13 +46,15 @@ class _SizePickerState extends State<SizePicker> {
                       :null,
                   borderRadius: BorderRadius.circular(100),
                 ),
-                child: Text(
-                  item,
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: _selectedSize == item
-                        ? Colors.white
-                        : null,
+                child: Center(
+                  child: Text(
+                    item,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: _selectedSize == item
+                          ? Colors.white
+                          : null,
+                    ),
                   ),
                 ),
               ),

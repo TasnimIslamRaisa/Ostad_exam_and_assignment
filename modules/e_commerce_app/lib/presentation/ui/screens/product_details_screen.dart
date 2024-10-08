@@ -1,4 +1,5 @@
 import 'package:e_commers_app/presentation/ui/widgets/centered_circularpogress.dart';
+import 'package:e_commers_app/presentation/ui/widgets/color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:item_count_number_button/item_count_number_button.dart';
@@ -32,7 +33,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       appBar: AppBar(
         title: const Text('Product Details'),
       ),
-      body: GetBuilder<ProductDetailsController>(builder: (productDetailsController) {
+      body: GetBuilder<ProductDetailsController>(
+          builder: (productDetailsController) {
         if (productDetailsController.inprogress) {
           return const CenteredCircularpogress();
         }
@@ -54,9 +56,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         return Column(
           children: [
             Expanded(
-              child: _buildProductDetails(productDetailsModel),
+              child: _buildProductDetails(
+                  productDetailsController.productDetailsModel!),
             ),
-            _buildPriceAndAddToCartSection(productDetailsModel)
+            _buildPriceAndAddToCartSection(
+                productDetailsController.productDetailsModel!)
           ],
         );
       }),
@@ -84,16 +88,32 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 const SizedBox(height: 4),
                 _buildRatingAndReviewSection(product),
                 const SizedBox(height: 8),
-                SizePicker(
-                  sizes: product.color?.split(',') ?? [],
-                  onSizeSelected: (String selectedSize) {},
-                  size: [],
+                /*SizePicker(
+                  size: productDetailsModel.color != null ? productDetailsModel.color!.split(',') : [], // Fix here
+                  onSizeSelected: (selectedSize) {
+                    // Handle size selection
+                    print('Selected size: $selectedSize');
+                  }, sizes: [],
+                ),*/
+                ColorPicker(
+                  colors: const [
+                    Colors.cyan,
+                    Colors.pink,
+                    Colors.greenAccent,
+                    Colors.black
+                  ],
+                  onColorSelected: (color) {},
                 ),
                 const SizedBox(height: 16),
                 SizePicker(
-                  sizes: product.size?.split(',') ?? [],
-                  onSizeSelected: (String selectedSize) {},
-                  size: [],
+                  size: productDetailsModel.size != null
+                      ? productDetailsModel.size!.split(',')
+                      : [], // Fix here
+                  onSizeSelected: (selectedSize) {
+                    // Handle size selection
+                    print('Selected size: $selectedSize');
+                  },
+                  sizes: [],
                 ),
                 const SizedBox(height: 16),
                 _buildDescriptionSection(product)
@@ -115,7 +135,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         ),
         const SizedBox(height: 8),
         Text(
-          productDetails.product?.shortDes ??  'No description available.',
+          productDetails.product?.shortDes ?? 'No description available.',
           style: const TextStyle(color: Colors.black45),
         ),
       ],
