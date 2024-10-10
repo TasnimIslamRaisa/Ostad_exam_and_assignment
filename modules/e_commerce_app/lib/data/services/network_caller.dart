@@ -3,7 +3,7 @@ import 'package:e_commers_app/data/models/network_response.dart';
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 class NetworkCaller {
-
+  final Client client = Client();
   final Logger logger;
   NetworkCaller(this.logger);
 
@@ -49,16 +49,20 @@ class NetworkCaller {
   }
 
   Future<NetworkResponse> postRequest(
-      {required String url, Map<String, dynamic>? body, }) async
+      {required String url, Map<String, dynamic>? body, required String token, }) async
   {
     try {
       Uri uri = Uri.parse(url);
-      _requestLog(url, {}, body ?? {}, '');
+      String maskedToken = token.replaceRange(0, token.length - 4, '*' * (token.length - 4));
+      _requestLog(url, {}, body ?? {}, token);
+      //_requestLog(url, {}, body ?? {}, '');
       final Response response = await post(
         uri,
-        body: jsonEncode(body),
+        body: jsonEncode(body)
+
+        ,
         headers: {
-          'token': '',
+          'Authorization': 'Bearer $token',
           'content-type': 'application/json',
         },
       );

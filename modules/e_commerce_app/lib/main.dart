@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'app.dart';
 
 void main() {
-  Get.put(BottomNavbarController());
-  Get.put(ProductListByCategoryController());
+
   runApp(const CraftyBay());
 }

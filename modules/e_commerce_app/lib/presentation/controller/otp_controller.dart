@@ -17,7 +17,7 @@ class OTPController extends GetxController {
   bool get inProgess => _inProgress;
 
   String _accesstoken='';
-  String get accesttoken=>_accesstoken;
+  String get accesstoken=>_accesstoken;
 
   @override
   void onInit() {
@@ -45,7 +45,7 @@ class OTPController extends GetxController {
     startCountdown();
   }
 
-  Future<bool> verifyOtp(String email,int otp) async {
+  Future<bool> verifyOtp(String email,int otp,) async {
     bool isSuccess = false;
     _inProgress = true;
     update();

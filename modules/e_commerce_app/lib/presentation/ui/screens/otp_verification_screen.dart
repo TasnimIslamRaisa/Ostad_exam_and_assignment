@@ -121,9 +121,11 @@ class _OTPVarificationScreenState extends State<OTPVarificationScreen> {
       return;
     }
     int? otp = int.tryParse(_otpController.text);
+
     bool result = await otpController.verifyOtp(widget.email, otp!);
+
     if(result){
-      final bool readProfile=await _readProfileController.getProfileDetails(otpController.accesttoken);
+      final bool readProfile=await _readProfileController.getProfileDetails(otpController.accesstoken);
       showSnackBarMsg('Success', 'OTP verified successfully!');
       if(readProfile){
         if(_readProfileController.isProfileCompleted){

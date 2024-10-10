@@ -28,13 +28,15 @@ class ReadProfileController extends GetxController {
         url: Urls.readProfiletUrl,
         token: token,
     );
+    print("Read Token : $token");
     if(response.isSuccess){
       if(response.responseData['data']!=null){
         _isProfileCompleted = true;
         await Get.find<AuthController>().saveAccessToken(token);
         //update();
+        isSuccess=true;
       }
-      isSuccess=true;
+
     } else {
       _errorMsg=response.errorMsg;
     }
