@@ -16,6 +16,9 @@ class OTPController extends GetxController {
   String? get errorMsg => _errorMsg;
   bool get inProgess => _inProgress;
 
+  String _accesstoken='';
+  String get accesttoken=>_accesstoken;
+
   @override
   void onInit() {
     startCountdown();
@@ -51,6 +54,7 @@ class OTPController extends GetxController {
     await Get.find<NetworkCaller>().getRequest(url: Urls.verifyOtpUrl(email,otp));
     if (response.isSuccess && response.responseData['msg'] == 'success') {
       _errorMsg = null;
+      _accesstoken=response.responseData['data'];
       isSuccess = true;
     } else {
       _errorMsg = response.errorMsg;

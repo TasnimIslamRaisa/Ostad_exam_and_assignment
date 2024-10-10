@@ -9,6 +9,7 @@ class NetworkCaller {
 
   Future<NetworkResponse> getRequest({
     required String url,
+    String? token,
   }) async
   {
     try {
@@ -17,7 +18,7 @@ class NetworkCaller {
       final Response response = await get(
         uri,
         headers: {
-          'token': '',
+          'token': '$token',
         },
       );
       if (response.statusCode == 200) {

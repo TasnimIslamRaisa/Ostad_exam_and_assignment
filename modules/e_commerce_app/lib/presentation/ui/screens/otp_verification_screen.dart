@@ -8,6 +8,8 @@ import 'package:e_commers_app/presentation/ui/widgets/centered_circularpogress.d
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import '../../controller/read_profile_controller.dart';
+import 'bottom_nav_bar_screen.dart';
 import 'complete_profile_screen.dart';
 
 class OTPVarificationScreen extends StatefulWidget {
@@ -20,7 +22,8 @@ class OTPVarificationScreen extends StatefulWidget {
 
 class _OTPVarificationScreenState extends State<OTPVarificationScreen> {
   final TextEditingController _otpController= TextEditingController();
-  final OTPController otpController = Get.put(OTPController());
+  final OTPController otpController = Get.find<OTPController>();
+  final ReadProfileController _readProfileController = Get.find<ReadProfileController>();
   StreamController<ErrorAnimationType> errorController = StreamController<ErrorAnimationType>();
   GlobalKey<FormState> _formKey=GlobalKey<FormState>();
   @override
@@ -120,8 +123,18 @@ class _OTPVarificationScreenState extends State<OTPVarificationScreen> {
     int? otp = int.tryParse(_otpController.text);
     bool result = await otpController.verifyOtp(widget.email, otp!);
     if(result){
+      final bool readProfile=await _readProfileController.getProfileDetails(otpController.accesttoken);
       showSnackBarMsg('Success', 'OTP verified successfully!');
-      Get.to(() => const CompleteProfileScreen());
+      if(readProfile){
+        if(_readProfileController.isProfileCompleted){
+          Get.offAll(()=>const BottomNavBarScreen());
+        } else {
+          Get.to(() => const CompleteProfileScreen());
+        }
+      }
+      else {
+        showSnackBarMsg('Failed',_readProfileController.errorMsg ?? 'Navigation failed!',);
+      }
     } else {
       showSnackBarMsg('Failed', otpController.errorMsg ?? 'OTP verification failed!',);
     }
