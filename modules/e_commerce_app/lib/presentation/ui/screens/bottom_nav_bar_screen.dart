@@ -34,12 +34,14 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   @override
   void initState() {
     super.initState();
-    Get.find<SliderListController>().getSliderList();
-    Get.find<CategoryListController>().getCategoryList();
-    //Get.find<ProductListByCategoryController>().getProductListByCategory();
-    Get.find<PopularProductListController>().getPopularProductList();
-    Get.find<NewProductListController>().getNewProductList();
-    Get.find<SpecialProductListController>().getSpecialProductList();
+    WidgetsBinding.instance.addPostFrameCallback((_)
+    {
+      Get.find<SliderListController>().getSliderList();
+      Get.find<CategoryListController>().getCategoryList();
+      Get.find<PopularProductListController>().getPopularProductList();
+      Get.find<NewProductListController>().getNewProductList();
+      Get.find<SpecialProductListController>().getSpecialProductList();
+    });
   }
 
   @override

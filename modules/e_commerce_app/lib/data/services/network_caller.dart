@@ -49,7 +49,7 @@ class NetworkCaller {
   }
 
   Future<NetworkResponse> postRequest(
-      {required String url, Map<String, dynamic>? body}) async
+      {required String url, Map<String, dynamic>? body, }) async
   {
     try {
       Uri uri = Uri.parse(url);

@@ -1,3 +1,4 @@
+import 'package:e_commers_app/presentation/controller/auth_controller.dart';
 import 'package:e_commers_app/presentation/ui/screens/bottom_nav_bar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,6 +15,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   Future<void> _moveToNextScreen() async{
     await Future.delayed(const Duration(seconds: 2));
+    await Get.find<AuthController>().getAccessToken();
     //Get.off(()=>const HomeScreen());
     Get.off(()=>const BottomNavBarScreen());
   }

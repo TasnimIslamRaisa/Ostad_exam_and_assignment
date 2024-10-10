@@ -1,7 +1,10 @@
+import 'package:e_commers_app/presentation/controller/create_profile_controller.dart';
+import 'package:e_commers_app/presentation/ui/screens/bottom_nav_bar_screen.dart';
 import 'package:e_commers_app/presentation/ui/utils/app_colors.dart';
 import 'package:e_commers_app/presentation/ui/widgets/app_logo_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'home_screen.dart';
 
 class CompleteProfileScreen extends StatefulWidget {
@@ -17,6 +20,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
   final TextEditingController _mobileController= TextEditingController();
   final TextEditingController _cityController= TextEditingController();
   final TextEditingController _shippingAddressController= TextEditingController();
+  final CreateProfileController _createProfileController=Get.find<CreateProfileController>();
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -87,7 +91,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
   }
 
   void onTabNextButton(){
-    Get.off(()=>const HomeScreen());
+    Get.off(()=>const BottomNavBarScreen());
   }
 
   @override

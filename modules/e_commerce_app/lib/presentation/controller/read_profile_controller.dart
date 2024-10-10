@@ -3,6 +3,7 @@ import 'package:e_commers_app/data/models/network_response.dart';
 import 'package:e_commers_app/data/models/product_list_model.dart';
 import 'package:e_commers_app/data/services/network_caller.dart';
 import 'package:e_commers_app/data/utils/urls.dart';
+import 'package:e_commers_app/presentation/controller/auth_controller.dart';
 import 'package:get/get.dart';
 import '../../data/models/product_model.dart';
 
@@ -30,7 +31,8 @@ class ReadProfileController extends GetxController {
     if(response.isSuccess){
       if(response.responseData['data']!=null){
         _isProfileCompleted = true;
-        update();
+        await Get.find<AuthController>().saveAccessToken(token);
+        //update();
       }
       isSuccess=true;
     } else {
