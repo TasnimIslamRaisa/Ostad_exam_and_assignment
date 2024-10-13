@@ -1,6 +1,5 @@
 import 'package:e_commers_app/presentation/controller/bottom_nav_bar_controller.dart';
 import 'package:e_commers_app/presentation/controller/new_product_list_controller.dart';
-import 'package:e_commers_app/presentation/controller/product_list_controller.dart';
 import 'package:e_commers_app/presentation/ui/screens/cart_screen.dart';
 import 'package:e_commers_app/presentation/ui/screens/category_list_screen.dart';
 import 'package:e_commers_app/presentation/ui/screens/home_screen.dart';
@@ -8,10 +7,8 @@ import 'package:e_commers_app/presentation/ui/screens/wish_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-
 import '../../controller/category_list_controller.dart';
 import '../../controller/popular_product_list_controller.dart';
-import '../../controller/product_list_by_category_controller.dart';
 import '../../controller/slider_list_controller.dart';
 import '../../controller/special_product_list_controller.dart';
 

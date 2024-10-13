@@ -6,6 +6,7 @@ import 'package:e_commers_app/data/utils/urls.dart';
 import 'package:get/get.dart';
 import '../../data/models/create_profile_model.dart';
 import '../../data/models/product_model.dart';
+import 'auth_controller.dart';
 
 class CreateProfileController extends GetxController {
   bool _inProgress = false;
@@ -17,7 +18,7 @@ class CreateProfileController extends GetxController {
   String? _errorMsg;
   String? get errorMsg=>_errorMsg;
 
-  Future<bool> postCreateProfileDetails(CreateProfileModel profileModel, String token) async {
+  Future<bool> postCreateProfileDetails(CreateProfileModel profileModel,String token) async {
 
     bool isSuccess =false;
     _inProgress = true;
@@ -26,15 +27,17 @@ class CreateProfileController extends GetxController {
     final NetworkResponse response =
     await Get.find<NetworkCaller>().postRequest(
       url: Urls.createProfiletUrl,
-      token: token,
       body: profileModel.toJson(), // Send profile data in the request body
      );
     if(response.isSuccess){
       if(response.responseData['data']!=null){
         _isProfileCompleted = true;
-        update();
+        await Get.find<AuthController>().saveAccessToken(token);
+       // update();
       }
       isSuccess=true;
+      _errorMsg=null;
+
     } else {
       _errorMsg=response.errorMsg;
     }

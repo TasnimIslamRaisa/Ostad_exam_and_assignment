@@ -1,10 +1,9 @@
 import 'package:e_commers_app/presentation/controller/create_profile_controller.dart';
-import 'package:e_commers_app/presentation/ui/screens/bottom_nav_bar_screen.dart';
 import 'package:e_commers_app/presentation/ui/utils/app_colors.dart';
 import 'package:e_commers_app/presentation/ui/widgets/app_logo_widget.dart';
+import 'package:e_commers_app/presentation/ui/widgets/centered_circularpogress.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
 import '../../../data/models/create_profile_model.dart';
 import '../../controller/auth_controller.dart';
 import 'home_screen.dart';
@@ -89,9 +88,17 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
               const SizedBox(height: 16),
               TextField(controller: _shippingPhoneController, decoration: const InputDecoration(hintText: 'Shipping Phone')),
               const SizedBox(height: 24,),
-              ElevatedButton(
-                onPressed: onTabNextButton,
-                  child: const Text("C O M P L E T E"),
+              GetBuilder<CreateProfileController>(
+                builder: (createProfileController) {
+                  return Visibility(
+                    visible: !createProfileController.inprogress,
+                    replacement: const CenteredCircularpogress(),
+                    child: ElevatedButton(
+                      onPressed: onTabNextButton,
+                        child: const Text("C O M P L E T E"),
+                    ),
+                  );
+                }
               ),
             ],
           ),
@@ -124,16 +131,16 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
       cusName: _firstNameController.text.trim(),
       cusAdd: _shippingAddressController.text.trim(),
       cusCity: _cityController.text.trim(),
-      cusState: "SomeState", // Add the correct data
-      cusPostcode: "12345", // Add the correct data
-      cusCountry: "CountryName", // Add the correct data
+      cusState: _stateController.text.trim(), // Add the correct data
+      cusPostcode: _postcodeController.text.trim(),  // Add the correct data
+      cusCountry: _countryController.text.trim(),  // Add the correct data
       cusPhone: _mobileController.text.trim(),
       shipName: _firstNameController.text.trim(),
       shipAdd: _shippingAddressController.text.trim(),
       shipCity: _cityController.text.trim(),
-      shipState: "SomeState", // Add the correct data
-      shipPostcode: "12345", // Add the correct data
-      shipCountry: "CountryName", // Add the correct data
+      shipState: _shippingStateController.text.trim(),  // Add the correct data
+      shipPostcode: _shippingPostcodeController.text.trim(),  // Add the correct data
+      shipCountry: _shippingCountryController.text.trim(),  // Add the correct data
       shipPhone: _mobileController.text.trim(),
     );
 

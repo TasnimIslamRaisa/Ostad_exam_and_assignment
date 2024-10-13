@@ -34,9 +34,9 @@ class ReadProfileController extends GetxController {
         _isProfileCompleted = true;
         await Get.find<AuthController>().saveAccessToken(token);
         //update();
-        isSuccess=true;
       }
-
+      isSuccess=true;
+      _errorMsg=null;
     } else {
       _errorMsg=response.errorMsg;
     }

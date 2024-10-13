@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:e_commers_app/data/models/network_response.dart';
+import 'package:e_commers_app/presentation/controller/auth_controller.dart';
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 class NetworkCaller {
@@ -18,7 +19,7 @@ class NetworkCaller {
       final Response response = await get(
         uri,
         headers: {
-          'token': '$token',
+          'token': '${token ?? AuthController.accessToken}',
         },
       );
       if (response.statusCode == 200) {
@@ -49,20 +50,17 @@ class NetworkCaller {
   }
 
   Future<NetworkResponse> postRequest(
-      {required String url, Map<String, dynamic>? body, required String token, }) async
+      {required String url, Map<String, dynamic>? body,}) async
   {
     try {
       Uri uri = Uri.parse(url);
-      String maskedToken = token.replaceRange(0, token.length - 4, '*' * (token.length - 4));
-      _requestLog(url, {}, body ?? {}, token);
+      _requestLog(url, {}, body ?? {}, AuthController.accessToken ?? 'Null');
       //_requestLog(url, {}, body ?? {}, '');
       final Response response = await post(
         uri,
-        body: jsonEncode(body)
-
-        ,
+        body: jsonEncode(body),
         headers: {
-          'Authorization': 'Bearer $token',
+          'Authorization': '${AuthController.accessToken}',
           'content-type': 'application/json',
         },
       );

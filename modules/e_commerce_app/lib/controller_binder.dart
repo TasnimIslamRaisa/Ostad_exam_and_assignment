@@ -1,4 +1,5 @@
 import 'package:e_commers_app/data/services/network_caller.dart';
+import 'package:e_commers_app/presentation/controller/add_to_cart_controller.dart';
 import 'package:e_commers_app/presentation/controller/auth_controller.dart';
 import 'package:e_commers_app/presentation/controller/bottom_nav_bar_controller.dart';
 import 'package:e_commers_app/presentation/controller/category_list_controller.dart';
@@ -37,6 +38,7 @@ class ControllerBinder extends Bindings{
     Get.put(OTPController());
     Get.put(ReadProfileController());
     Get.put(CreateProfileController());
+    Get.put(AddToCartController());
   }
 
 }

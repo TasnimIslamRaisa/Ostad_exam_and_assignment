@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:item_count_number_button/item_count_number_button.dart';
 import '../../../data/models/product_details_model.dart';
+import '../../controller/add_to_cart_controller.dart';
 import '../../controller/product_details_controller.dart';
 import '../utils/app_colors.dart';
+import '../utils/snack_message.dart';
 import '../widgets/product_image_slider_widget.dart';
 import '../widgets/size_picker_widget.dart';
 
@@ -23,6 +25,10 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   late ProductDetailsModel productDetailsModel;
+  String _selectedColor='';
+  String _selectedSize='';
+  int quantity=0;
+
 
   @override
   void initState() {
@@ -99,14 +105,27 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     print('Selected size: $selectedSize');
                   }, sizes: [],
                 ),*/
-                ColorPicker(
+                /*ColorPicker(
                   colors: const [
                     Colors.cyan,
                     Colors.pink,
                     Colors.greenAccent,
                     Colors.black
                   ],
-                  onColorSelected: (color) {},
+                  onColorSelected: (color) {
+                    _selectedColor=color.toString();
+                  },
+                ),*/
+                SizePicker(
+                  size: productDetailsModel.color!= null
+                      ? productDetailsModel.color!.split(',')
+                      : [], // Fix here
+                  onSizeSelected: (selectedColor) {
+                    // Handle size selection
+                    _selectedColor=selectedColor;
+                    print('Selected size: $selectedColor');
+                  },
+                  sizes: [],
                 ),
                 const SizedBox(height: 16),
                 SizePicker(
@@ -115,6 +134,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       : [], // Fix here
                   onSizeSelected: (selectedSize) {
                     // Handle size selection
+                    _selectedColor=selectedSize;
                     print('Selected size: $selectedSize');
                   },
                   sizes: [],
@@ -157,12 +177,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           ),
         ),
         ItemCount(
+          //initialValue: quantity,
           initialValue: 1,
           minValue: 1,
           maxValue: 20,
           decimalPlaces: 0,
           color: AppColors.themeColor,
-          onChanged: (value) {},
+          onChanged: (value) {
+            quantity= value.toInt();
+          },
         ),
       ],
     );
@@ -238,9 +261,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           ),
           SizedBox(
             width: 140,
-            child: ElevatedButton(
-              onPressed: _onTabAddToCard,
-              child: const Text('Add To Cart'),
+            child: GetBuilder<AddToCartController>(
+              builder: (addToCartController) {
+                return Visibility(
+                  visible: !addToCartController.inProgess,
+                  replacement: const CenteredCircularpogress(),
+                  child: ElevatedButton(
+                    onPressed: _onTabAddToCard,
+                    child: const Text('Add To Cart'),
+                  ),
+                );
+              }
             ),
           ),
         ],
@@ -251,7 +282,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   Future<void> _onTabAddToCard() async{
     bool isLoggedInUser=await Get.find<AuthController>().isLoggedIn();
     if(isLoggedInUser){
-
+      final result= await Get.find<AddToCartController>().addToCart(widget.productId, _selectedColor, _selectedSize, quantity);
+      if(result){
+        showSnackBarMsg('Successfully','Added To Cart');
+      }
+      else {
+        if(mounted){
+          showSnackBarMsg('Failed',Get.find<AddToCartController>().errorMsg ?? 'Failed To add Cart');
+        }
+      }
     } else {
       Get.to(()=>const EmailVarificationScreen());
     }
