@@ -37,11 +37,6 @@ class ControllerBinder extends Bindings{
     Get.put(OTPController());
     Get.put(ReadProfileController());
     Get.put(CreateProfileController());
-
-
-
-
-
   }
 
 }

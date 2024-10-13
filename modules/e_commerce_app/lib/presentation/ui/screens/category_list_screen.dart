@@ -32,7 +32,9 @@ class CategoryListScreen extends StatelessWidget {
         ),
         body: RefreshIndicator(
           onRefresh: () async {
-            Get.find<CategoryListController>().getCategoryList();
+            //Get.find<CategoryListController>().getCategoryList();
+            Get.find<CategoryListController>().categoryList.clear();
+            await Get.find<CategoryListController>().getCategoryList();
           },
           child: GetBuilder<CategoryListController>(
             builder: (categoryListController) {
@@ -40,7 +42,6 @@ class CategoryListScreen extends StatelessWidget {
               if (categoryListController.inprogress) {
                 return const CenteredCircularpogress();
               }
-
               // Check if there is an error message
               else if (categoryListController.errorMsg != null) {
                 return Center(

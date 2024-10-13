@@ -1,5 +1,6 @@
 import 'package:e_commers_app/presentation/controller/auth_controller.dart';
 import 'package:e_commers_app/presentation/ui/screens/email_varification_screen.dart';
+import 'package:e_commers_app/presentation/ui/screens/reviews_screen.dart';
 import 'package:e_commers_app/presentation/ui/widgets/centered_circularpogress.dart';
 import 'package:e_commers_app/presentation/ui/widgets/color_picker.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +63,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   productDetailsController.productDetailsModel!),
             ),
             _buildPriceAndAddToCartSection(
-                productDetailsController.productDetailsModel!)
+                productDetailsController.productDetailsModel!),
+
           ],
         );
       }),
@@ -183,7 +185,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         ),
         const SizedBox(width: 8),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.to(()=>ReviewsScreen());
+          },
           child: const Text(
             'Reviews',
             style: TextStyle(
@@ -249,7 +253,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     if(isLoggedInUser){
 
     } else {
-      Get.to(()=>EmailVarificationScreen());
+      Get.to(()=>const EmailVarificationScreen());
     }
 
   }

@@ -48,6 +48,13 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   Widget build(BuildContext context) {
     return GetBuilder<BottomNavbarController>(
       builder: (_) {
+        // Ensure the selectedIndex is within the bounds of the _screens list
+        if (_bottomNavbarController.selectedIndex < 0 ||
+            _bottomNavbarController.selectedIndex >= _screens.length) {
+          return const Center(
+            child: Text('Error: Invalid Index'),
+          );
+        }
         return Scaffold(
           body: _screens[_bottomNavbarController.selectedIndex],
           bottomNavigationBar: NavigationBar(
