@@ -1,12 +1,15 @@
 import 'dart:convert';
 import 'package:e_commers_app/data/models/network_response.dart';
 import 'package:e_commers_app/presentation/controller/auth_controller.dart';
+import 'package:e_commers_app/presentation/ui/screens/email_varification_screen.dart';
+import 'package:get/get.dart' as getx;
+import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 class NetworkCaller {
-  final Client client = Client();
   final Logger logger;
-  NetworkCaller(this.logger);
+  final AuthController authController;
+  NetworkCaller({required this.logger, required this.authController});
 
   Future<NetworkResponse> getRequest({
     required String url,
@@ -33,7 +36,7 @@ class NetworkCaller {
         );
       } else {
         _responseLog(
-            true, url, response.statusCode, response.body, response.headers);
+            false, url, response.statusCode, response.body, response.headers);
         return NetworkResponse(
           statusCode: response.statusCode,
           isSuccess: false,
@@ -50,7 +53,7 @@ class NetworkCaller {
   }
 
   Future<NetworkResponse> postRequest(
-      {required String url, Map<String, dynamic>? body,}) async
+      {required String url,required String? token, Map<String, dynamic>? body}) async
   {
     try {
       Uri uri = Uri.parse(url);
@@ -60,7 +63,8 @@ class NetworkCaller {
         uri,
         body: jsonEncode(body),
         headers: {
-          'Authorization': '${AuthController.accessToken}',
+          'token': token ?? '${AuthController.accessToken}',
+          //'Authorization': token ?? '${AuthController.accessToken}',
           'content-type': 'application/json',
         },
       );
@@ -75,6 +79,9 @@ class NetworkCaller {
           responseData: decodedBody,
         );
       } else {
+        if (response.statusCode == 400) {
+          _movedToLogin();
+        }
         _responseLog(
             false, url, response.statusCode, response.body, response.headers);
         return NetworkResponse(
@@ -117,6 +124,11 @@ class NetworkCaller {
     } else {
       logger.e(message);
     }
+  }
+
+  Future<void> _movedToLogin() async {
+    //await authController.clearUserData();
+    getx.Get.to(() => const EmailVarificationScreen());
   }
 
 }

@@ -1,4 +1,5 @@
 import 'package:e_commers_app/presentation/controller/create_profile_controller.dart';
+import 'package:e_commers_app/presentation/ui/screens/email_varification_screen.dart';
 import 'package:e_commers_app/presentation/ui/utils/app_colors.dart';
 import 'package:e_commers_app/presentation/ui/widgets/app_logo_widget.dart';
 import 'package:e_commers_app/presentation/ui/widgets/centered_circularpogress.dart';
@@ -9,7 +10,8 @@ import '../../controller/auth_controller.dart';
 import 'home_screen.dart';
 
 class CompleteProfileScreen extends StatefulWidget {
-  const CompleteProfileScreen({super.key});
+  final String token;
+  const CompleteProfileScreen({super.key, required this.token});
 
   @override
   State<CompleteProfileScreen> createState() => _CompleteProfileScreenState();
@@ -34,9 +36,12 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
   final TextEditingController _shippingPostcodeController = TextEditingController();
   final TextEditingController _shippingCountryController = TextEditingController();
   final TextEditingController _shippingPhoneController = TextEditingController();
+  late final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 
-  final CreateProfileController _createProfileController=Get.find<CreateProfileController>();
+  final CreateProfileController createProfileController=Get.find<CreateProfileController>();
+
+  String? test = AuthController.accessToken;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +50,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
         padding: const EdgeInsets.all(24.0),
         child: SingleChildScrollView(
           child: Column(
+            key: _formKey,
             children: [
               const SizedBox(height: 100,),
               const Center(child: AppLogoWidget()),
@@ -111,9 +117,32 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
     Get.off(()=>const BottomNavBarScreen());
   }*/
 
-  void onTabNextButton() async {
+  Future<void> onTabNextButton() async {
 
-    String? token = await Get.find<AuthController>().getAccessToken();
+    bool result = await createProfileController.postCreateProfileDetails(
+        _firstNameController.text.trim(),
+        _lastNameController.text.trim(),
+        _mobileController.text.trim(),
+        _cityController.text.trim(),
+        _shippingAddressController.text.trim(),
+        _postcodeController.text.trim(),
+        widget.token);
+
+    if (result == true) {
+      Get.snackbar('Success', 'Profile Created successfully!');
+      Get.off(() => const EmailVarificationScreen());
+    } else {
+      Get.snackbar(
+        'Error',
+        'Token is missing or expired. Please login again.',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
+
+
+
+    /*    String? token = await Get.find<AuthController>().getAccessToken();
 
     if (token == null || token.isEmpty) {
       Get.snackbar(
@@ -124,8 +153,6 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
       );
       return;
     }
-
-
     // Create an instance of CreateProfileModel with user input data
     CreateProfileModel profileModel = CreateProfileModel(
       cusName: _firstNameController.text.trim(),
@@ -145,7 +172,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
     );
 
     // Call the CreateProfileController to send the data
-    bool success = await _createProfileController.postCreateProfileDetails(
+    bool success = await createProfileController.postCreateProfileDetails(
       profileModel,
       token,  // Replace with actual token
     );
@@ -156,11 +183,11 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
     } else {
       Get.snackbar(
         'Error',
-        _createProfileController.errorMsg ?? 'Failed to create profile',
+        createProfileController.errorMsg ?? 'Failed to create profile',
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
-    }
+    }*/
   }
 
   void dispose() {

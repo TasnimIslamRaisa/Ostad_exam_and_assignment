@@ -18,26 +18,47 @@ class CreateProfileController extends GetxController {
   String? _errorMsg;
   String? get errorMsg=>_errorMsg;
 
-  Future<bool> postCreateProfileDetails(CreateProfileModel profileModel,String token) async {
+  Future<bool> postCreateProfileDetails( String firstName,
+      String lastName,
+      String mobile,
+      String city,
+      String shippingAddress,
+      String postCode, // Consider using this dynamically
+      String token,) async {
 
     bool isSuccess =false;
     _inProgress = true;
     update();
 
+    Map<String, dynamic> completeProfile = {
+      "cus_name": "$firstName $lastName",
+      "cus_add": shippingAddress,
+      "cus_city": city,
+      "cus_state": city, // Assuming state is the same as city
+      "cus_postcode": postCode,
+      "cus_country": "Bangladesh",
+      "cus_phone": mobile,
+      "cus_fax": mobile,
+      "ship_name": "$firstName $lastName",
+      "ship_add": shippingAddress,
+      "ship_city": city,
+      "ship_state": city,
+      "ship_postcode": postCode,
+      "ship_country": "Bangladesh",
+      "ship_phone": mobile,
+      "created_at": DateTime.now()
+          .toIso8601String(), // Better to dynamically assign timestamps
+      "updated_at": DateTime.now().toIso8601String(),
+    };
+
     final NetworkResponse response =
     await Get.find<NetworkCaller>().postRequest(
       url: Urls.createProfiletUrl,
-      body: profileModel.toJson(), // Send profile data in the request body
+      body: completeProfile, token: token, // Send profile data in the request body
      );
-    if(response.isSuccess){
-      if(response.responseData['data']!=null){
-        _isProfileCompleted = true;
-        await Get.find<AuthController>().saveAccessToken(token);
-       // update();
-      }
+    if(response.isSuccess && response.responseData['msg']=='success'){
       isSuccess=true;
       _errorMsg=null;
-
     } else {
       _errorMsg=response.errorMsg;
     }

@@ -18,7 +18,7 @@ class Urls {
 
   static String emailUrl(String email) => '$_baseUrl/UserLogin/$email';
 
-  static String verifyOtpUrl(String email, int otp) =>
+  static String verifyOtpUrl(String email, String otp) =>
       '$_baseUrl/VerifyLogin/$email/$otp';
 
 }

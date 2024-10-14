@@ -15,8 +15,20 @@ class HomeBannerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<SliderListController>(builder: (sliderListController) {
+      // Handle case when the slider list is empty
+      if (sliderListController.sliders.isEmpty) {
+        return const SizedBox(
+          height: 200,
+          child: Center(
+            child: Text(
+              'No banners available',
+              style: TextStyle(color: Colors.grey),
+            ),
+          ),
+        );
+      }
       return Visibility(
-        visible: sliderListController.inprogress == false,
+        visible: !sliderListController.inprogress ,
         replacement: const SizedBox(
           height: 200,
           child: CenteredCircularpogress(),
@@ -39,10 +51,12 @@ class HomeBannerWidget extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: AppColors.themeColor,
                         borderRadius: BorderRadius.circular(24),
-                        image: DecorationImage(
-                          image: NetworkImage(slider.image ?? ' '),
-                          fit: BoxFit.cover
+                        image: slider.image != null && slider.image!.isNotEmpty
+                            ? DecorationImage(
+                          image: NetworkImage(slider.image!),
+                          fit: BoxFit.cover,
                         )
+                            : null, // Handle null or empty image URL properly
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(18.0),
@@ -108,7 +122,7 @@ class HomeBannerWidget extends StatelessWidget {
                         ),
                     ],
                   );
-                }),
+                },),
           ],
         ),
       );

@@ -45,7 +45,7 @@ class OTPController extends GetxController {
     startCountdown();
   }
 
-  Future<bool> verifyOtp(String email,int otp,) async {
+  Future<bool> verifyOtp(String email,String otp,) async {
     bool isSuccess = false;
     _inProgress = true;
     update();

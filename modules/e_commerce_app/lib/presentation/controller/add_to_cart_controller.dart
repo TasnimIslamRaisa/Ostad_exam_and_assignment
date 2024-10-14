@@ -23,7 +23,7 @@ class AddToCartController extends GetxController {
         "color":color,
         "size":size,
         "qty":quantity
-      }
+      }, token: ''
         );
     if (response.isSuccess && response.responseData['msg'] == 'success') {
       _errorMsg = null;

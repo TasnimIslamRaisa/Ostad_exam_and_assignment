@@ -22,15 +22,18 @@ import 'package:logger/logger.dart';
 class ControllerBinder extends Bindings{
   @override
   void dependencies() {
+    Get.put(AuthController());
+    Get.put(Logger());
     Get.put(BottomNavbarController());
     Get.put(ProductListByCategoryController());
-    Get.put(Logger());
-    Get.put(NetworkCaller(Get.find<Logger>()));
-    Get.lazyPut(()=>SliderListController());
-    Get.lazyPut(()=>CategoryListController());
-    Get.lazyPut(()=>PopularProductListController());
-    Get.lazyPut(()=>SpecialProductListController());
-    Get.lazyPut(()=>NewProductListController());
+    Get.put(NetworkCaller(
+      logger: Get.find<Logger>(),
+      authController: Get.find<AuthController>(),));
+    Get.put(SliderListController());
+    Get.put(CategoryListController());
+    Get.put(PopularProductListController());
+    Get.put(SpecialProductListController());
+    Get.put(NewProductListController());
     Get.put(ProductDetailsByIdController());
     Get.put(ProductDetailsController());
     Get.put(AuthController());
