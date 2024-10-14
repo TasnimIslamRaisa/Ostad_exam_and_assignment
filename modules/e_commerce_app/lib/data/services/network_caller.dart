@@ -37,6 +37,9 @@ class NetworkCaller {
       } else {
         _responseLog(
             false, url, response.statusCode, response.body, response.headers);
+        if (response.statusCode == 401) {
+          _movedToLogin();
+        }
         return NetworkResponse(
           statusCode: response.statusCode,
           isSuccess: false,
@@ -79,7 +82,7 @@ class NetworkCaller {
           responseData: decodedBody,
         );
       } else {
-        if (response.statusCode == 400) {
+        if (response.statusCode == 401) {
           _movedToLogin();
         }
         _responseLog(
@@ -127,7 +130,7 @@ class NetworkCaller {
   }
 
   Future<void> _movedToLogin() async {
-    //await authController.clearUserData();
+    await authController.clearUserData();
     getx.Get.to(() => const EmailVarificationScreen());
   }
 

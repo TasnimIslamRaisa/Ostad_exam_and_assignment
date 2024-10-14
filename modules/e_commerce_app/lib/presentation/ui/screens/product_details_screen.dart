@@ -27,7 +27,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   late ProductDetailsModel productDetailsModel;
   String _selectedColor='';
   String _selectedSize='';
-  int quantity=0;
+  int quantity=1;
 
 
   @override
@@ -78,6 +78,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   }
 
   Widget _buildProductDetails(ProductDetailsModel product) {
+    List<String> colors=product.color!.split(',');
+    _selectedColor=colors.first;
+    List<String> size=product.size!.split(',');
+    _selectedSize=size.first;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -117,9 +121,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   },
                 ),*/
                 SizePicker(
-                  size: productDetailsModel.color!= null
-                      ? productDetailsModel.color!.split(',')
-                      : [], // Fix here
+                  size: colors, // Fix here
                   onSizeSelected: (selectedColor) {
                     // Handle size selection
                     _selectedColor=selectedColor;
@@ -129,9 +131,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
                 const SizedBox(height: 16),
                 SizePicker(
-                  size: productDetailsModel.size != null
-                      ? productDetailsModel.size!.split(',')
-                      : [], // Fix here
+                  size:size, // Fix here
                   onSizeSelected: (selectedSize) {
                     // Handle size selection
                     _selectedColor=selectedSize;
@@ -167,6 +167,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   }
 
   Widget _buildNameAndQuantitySection(ProductDetailsModel productDetails) {
+    //int quantity = 1;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -177,14 +178,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           ),
         ),
         ItemCount(
-          //initialValue: quantity,
-          initialValue: 1,
+          initialValue: quantity,
+          //initialValue: 1,
           minValue: 1,
           maxValue: 20,
           decimalPlaces: 0,
           color: AppColors.themeColor,
           onChanged: (value) {
             quantity= value.toInt();
+            setState(() {});
           },
         ),
       ],
