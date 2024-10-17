@@ -1,31 +1,39 @@
+import 'package:e_commers_app/data/models/cart_model.dart';
 import 'package:flutter/material.dart';
 import 'package:item_count_number_button/item_count_number_button.dart';
 
 import '../utils/app_colors.dart';
 import '../utils/assets_path.dart';
 
-class CardItemWidget extends StatelessWidget {
+class CardItemWidget extends StatefulWidget {
+  final CartModel cartModel;
   const CardItemWidget({
-    super.key,
+    super.key,required this.cartModel,
   });
 
   @override
+  State<CardItemWidget> createState() => _CardItemWidgetState();
+}
+
+class _CardItemWidgetState extends State<CardItemWidget> {
+  @override
   Widget build(BuildContext context) {
+    int quantity=1;
     return Card(
       color: Colors.white,
-      margin: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
       elevation: 3,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(AssetsPath.productImg,
+            Image.asset(widget.cartModel.product?.image ?? '',
               height: 80,
               width: 80,
               fit: BoxFit.scaleDown,
             ),
-            SizedBox(width: 16,),
+            const SizedBox(width: 16,),
             Expanded(
                 child: Column(
                   children: [
@@ -35,15 +43,15 @@ class CardItemWidget extends StatelessWidget {
                         Expanded(child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Title of Product',style: Theme.of(context).textTheme.titleMedium,),
-                            const Wrap(
+                            Text(widget.cartModel.product?.title ?? "No title",style: Theme.of(context).textTheme.titleMedium,),
+                            Wrap(
                               spacing: 8,
                               children: [
-                                Text('Color : Red'),
-                                Text("Size : XL"),
+                                Text('Color : ${widget.cartModel.color}'),
+                                Text("Size : ${widget.cartModel.size}"),
                               ],
                             ),
-                            const Text('\$100',style: TextStyle(color: AppColors.themeColor,)),
+                            Text(widget.cartModel.price.toString(),style: TextStyle(color: AppColors.themeColor,)),
                           ],
                         )),
                         Column(
@@ -53,13 +61,15 @@ class CardItemWidget extends StatelessWidget {
                             IconButton(onPressed: (){}, icon:const Icon(Icons.delete)),
                             ItemCount(
                               color: AppColors.themeColor,
-                              initialValue: 1,
+                              initialValue: quantity,
                               minValue: 1,
                               maxValue: 20,
                               decimalPlaces: 0,
                               onChanged: (value) {
                                 // Handle counter value changes
                                 print('Selected value: $value');
+                                quantity= value.toInt();
+                                setState(() {});
                               },
                             ),
                           ],

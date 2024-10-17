@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:e_commers_app/data/models/network_response.dart';
 import 'package:e_commers_app/data/services/network_caller.dart';
 import 'package:e_commers_app/data/utils/urls.dart';
+import 'package:e_commers_app/presentation/controller/auth_controller.dart';
 import 'package:get/get.dart';
 
 class AddToCartController extends GetxController {
@@ -23,7 +24,7 @@ class AddToCartController extends GetxController {
         "color":color,
         "size":size,
         "qty":quantity
-      }, token: ''
+      }, token: AuthController.accessToken
         );
     if (response.isSuccess && response.responseData['msg'] == 'success') {
       _errorMsg = null;

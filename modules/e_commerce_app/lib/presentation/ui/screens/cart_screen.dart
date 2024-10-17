@@ -1,15 +1,31 @@
+import 'package:e_commers_app/presentation/controller/cart_list_controller.dart';
+import 'package:e_commers_app/presentation/ui/widgets/centered_circularpogress.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/bottom_nav_bar_controller.dart';
 import '../utils/app_colors.dart';
 import '../widgets/card_item_widget.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key,});
 
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
   void backToHome(){
     Get.find<BottomNavbarController>().backToHome();
   }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Get.find<CartListController>().getCartList();
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -21,22 +37,38 @@ class CartScreen extends StatelessWidget {
           appBar: AppBar(
             leading: IconButton(onPressed: (){
               backToHome();
-            }, icon: Icon(Icons.arrow_back_ios)),
-            title: Text('Cart'),
+            }, icon: const Icon(Icons.arrow_back_ios)),
+            title: const Text('Cart'),
           ),
-          body: Column(
-            children: [
-              Expanded(
-                  child: ListView.builder(
-                    itemCount: 15,
-                      itemBuilder: (context,index){
-                      return  const CardItemWidget();
-                      },
+          body: RefreshIndicator(
+            onRefresh: (){
+              return Get.find<CartListController>().getCartList();
+            },
+            child: Column(
+              children: [
+                Expanded(
+                    child: GetBuilder<CartListController>(
+                      builder: (cartListController) {
+                        return Visibility(
+                          visible: !cartListController.inprogress,
+                          replacement: const CenteredCircularpogress(),
+                          child: ListView.builder(
+                            itemCount: cartListController.cartList.length,
+                              itemBuilder: (context,index){
+                              return CardItemWidget(
+                                cartModel: cartListController.cartList[index],
+
+                              );
+                              },
 
 
-                  )),
-              PriceAndCartSection(),
-            ],
+                          ),
+                        );
+                      }
+                    )),
+                PriceAndCartSection(),
+              ],
+            ),
           ),
         ));
   }
