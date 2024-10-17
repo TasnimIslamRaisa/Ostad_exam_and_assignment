@@ -21,7 +21,9 @@ class CartModel {
         this.qty,
         this.price,
         this.createdAt,
-        this.updatedAt});
+        this.updatedAt,
+        this.product
+      });
 
   CartModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -35,17 +37,4 @@ class CartModel {
     updatedAt = json['updated_at'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['product_id'] = this.productId;
-    data['color'] = this.color;
-    data['size'] = this.size;
-    data['qty'] = this.qty;
-    data['price'] = this.price;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    return data;
-  }
 }

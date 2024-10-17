@@ -8,10 +8,12 @@ class CartListModel {
 
   CartListModel.fromJson(Map<String, dynamic> json) {
     msg = json['msg'];
-    cartListData = List<CartModel>.from(
-        json['data'].map((item) => CartModel.fromJson(item)));
-  }
-
-
+    if (json['data'] != null) {
+      cartListData = <CartModel>[];
+      json['data'].forEach((v) {
+        cartListData!.add(CartModel.fromJson(v));
+      });
+    }
+     }
 }
 

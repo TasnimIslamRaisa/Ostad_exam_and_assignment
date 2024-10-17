@@ -52,7 +52,15 @@ class _CartScreenState extends State<CartScreen> {
                         return Visibility(
                           visible: !cartListController.inprogress,
                           replacement: const CenteredCircularpogress(),
-                          child: ListView.builder(
+                          child:cartListController.cartList.isEmpty
+                              ? const Center(
+                            child: Text(
+                              'NOTHING ADDED TO CART YET',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.normal),
+                            ),
+                          )
+                              : ListView.builder(
                             itemCount: cartListController.cartList.length,
                               itemBuilder: (context,index){
                               return CardItemWidget(
