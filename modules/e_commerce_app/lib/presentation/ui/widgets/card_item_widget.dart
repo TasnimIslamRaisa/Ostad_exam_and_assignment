@@ -19,6 +19,10 @@ class _CardItemWidgetState extends State<CardItemWidget> {
   @override
   Widget build(BuildContext context) {
     int quantity=1;
+    String imageUrl = widget.cartModel.product?.image?.isNotEmpty == true
+        ? widget.cartModel.product!.image!
+        : AssetsPath.productImg;
+
     return Card(
       color: Colors.white,
       margin: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
@@ -28,7 +32,26 @@ class _CardItemWidgetState extends State<CardItemWidget> {
         child: Row(
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(widget.cartModel.product?.image ?? '',
+            /*Image.network(imageUrl,
+              height: 80,
+              width: 80,
+              fit: BoxFit.scaleDown,
+              errorBuilder: (context, error, stackTrace) {
+                return Image.asset(AssetsPath.productImg, height: 80, width: 80); // Fallback if network image fails
+              },
+            ),*/
+            imageUrl.startsWith('http')
+                ? Image.network(
+              imageUrl,
+              height: 80,
+              width: 80,
+              fit: BoxFit.scaleDown,
+              errorBuilder: (context, error, stackTrace) {
+                return Image.asset(AssetsPath.productImg, height: 80, width: 80); // Fallback if network image fails
+              },
+            )
+                : Image.asset(
+              imageUrl,
               height: 80,
               width: 80,
               fit: BoxFit.scaleDown,
@@ -51,7 +74,7 @@ class _CardItemWidgetState extends State<CardItemWidget> {
                                 Text("Size : ${widget.cartModel.size}"),
                               ],
                             ),
-                            Text(widget.cartModel.price.toString(),style: TextStyle(color: AppColors.themeColor,)),
+                            Text(widget.cartModel.price.toString(),style: const TextStyle(color: AppColors.themeColor,)),
                           ],
                         )),
                         Column(

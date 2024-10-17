@@ -1,3 +1,4 @@
+import 'package:e_commers_app/presentation/ui/screens/bottom_nav_bar_screen.dart';
 import 'package:e_commers_app/presentation/ui/widgets/product_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,6 +24,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
         .getProductListByCategory(widget.category.id!); // Assuming category.id is not null
   }
 
+  void backToHome(){
+    Get.find<BottomNavbarController>().backToHome();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +35,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
         title: Text(widget.category.categoryName ?? ''), // Display category name
         leading: IconButton(
           onPressed: () {
-            Get.find<BottomNavbarController>().backToHome(); // Navigate back to home
+            Get.off(()=>BottomNavBarScreen());
+            //Get.find<BottomNavbarController>().backToHome(); // Navigate back to home
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),

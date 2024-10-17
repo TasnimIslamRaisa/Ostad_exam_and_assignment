@@ -11,6 +11,10 @@ class AuthController{
   }
 
   Future<String?> getAccessToken() async{
+    if (accessToken != null) {
+      // If token is already in memory, return it
+      return accessToken;
+    }
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     final String? token = sharedPreferences.getString(_accessTokenKey);
     accessToken=token;
@@ -19,10 +23,14 @@ class AuthController{
   }
 
   Future<bool> isLoggedIn() async {
-    return accessToken!=null;
+    String? token = await getAccessToken();
+    return token != null;
   }
+
   Future<void> clearUserData() async{
     SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
     await sharedPreferences.clear();
+    accessToken = null;
+    print('User data cleared, token removed.');
   }
 }

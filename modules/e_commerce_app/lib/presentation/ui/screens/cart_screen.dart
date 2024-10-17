@@ -57,11 +57,8 @@ class _CartScreenState extends State<CartScreen> {
                               itemBuilder: (context,index){
                               return CardItemWidget(
                                 cartModel: cartListController.cartList[index],
-
                               );
                               },
-
-
                           ),
                         );
                       }
