@@ -1,4 +1,7 @@
+import 'package:e_commers_app/presentation/ui/screens/add_review_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../utils/app_colors.dart';
 
 
@@ -89,7 +92,9 @@ class ReviewsScreen extends StatelessWidget {
             ],
           ),
           FloatingActionButton(
-              onPressed: (){},
+              onPressed: (){
+                Get.to(()=>const AddReviewScreen());
+              },
               child: const Icon(Icons.add),
             ),
         ],
