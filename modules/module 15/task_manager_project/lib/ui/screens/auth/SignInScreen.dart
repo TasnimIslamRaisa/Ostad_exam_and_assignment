@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:task_manager_project/data/models/network_response.dart';
 import 'package:task_manager_project/data/restAPI/network_caller.dart';
 import 'package:task_manager_project/data/urls.dart';
 import 'package:task_manager_project/style/appColors.dart';
+import 'package:task_manager_project/ui/controller/sign_in_controller.dart';
 import 'package:task_manager_project/ui/screens/auth/SignUpScreen.dart';
 import 'package:task_manager_project/ui/screens/main_bottom_nav_screen.dart';
 import 'package:task_manager_project/ui/widgets/bg_widget.dart';
@@ -98,13 +100,17 @@ class _SignInScreenState extends State<SignInScreen> {
                     const SizedBox(
                       height: 16,
                     ),
-                    Visibility(
-                      visible: signInApiInProgress==false,
-                      replacement: const Center(child: CircularProgressIndicator()),
-                      child: ElevatedButton(
-                        onPressed: onTabNextButton,
-                        child: const Icon(Icons.arrow_right),
-                      ),
+                    GetBuilder<SignInController>(
+                      builder: (signInController) {
+                        return Visibility(
+                          visible: signInApiInProgress==false,
+                          replacement: const Center(child: CircularProgressIndicator()),
+                          child: ElevatedButton(
+                            onPressed: onTabNextButton,
+                            child: const Icon(Icons.arrow_right),
+                          ),
+                        );
+                      }
                     ),
                     const SizedBox(
                       height: 45,
@@ -160,45 +166,23 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  Future<void> signUp() async {
-    signInApiInProgress = true;
-    if (mounted) {
-      setState(() {});
-    }
-    Map<String, dynamic> requestdata = {
-      "email": emailController.text.trim(),
-      "password": passWordController.text,
-    };
-    final NetworkResponse response =
-        await NetworkCaller.postRequest(Urls.login, body: requestdata);
-    signInApiInProgress = true;
-    if (mounted) {
-      setState(() {});
-    }
-    if (response.isSuccess) {
-      LogInModel  loginModel=LogInModel.fromJson(response.responseData);
-      await AuthController.saveUserAccessToken(loginModel.token!);
-      await AuthController.saveUserdata(loginModel.userModel!);
-      if(mounted){
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const MainBottomNavScreen(),
-          ),
-        );
-      }
-    } else {
-      if(mounted){
-        showSnackBarMsg(
-            context, response.errorMsg ?? 'Email or password is not correct!');
-      }
-    }
-  }
 
-  void onTabNextButton() {
+  Future<void> onTabNextButton() async{
 
     if (_formkey.currentState!.validate()) {
-      signUp();
+      final SignInController signInController = Get.find<SignInController>();
+      final bool result = await signInController.signIn(
+        emailController.text.trim(),
+        passWordController.text,
+      );
+      if (result) {
+        Get.offAll(() => const MainBottomNavScreen());
+      } else {
+        if (mounted) {
+          GetSnackBar(title : signInController.errorMessage);
+         // showSnackBarMessage(context, signInController.errorMessage);
+        }
+      }
     }
   }
 

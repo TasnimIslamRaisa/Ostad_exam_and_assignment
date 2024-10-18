@@ -7,7 +7,7 @@ class UserModel {
   String? photo;
 
   String get fullName{
-    return (firstName ?? '') + " " +(lastName ?? '');
+    return "${firstName ?? ''} ${lastName ?? ''}";
   }
 
   UserModel({this.email, this.firstName, this.lastName, this.mobile, this.photo});

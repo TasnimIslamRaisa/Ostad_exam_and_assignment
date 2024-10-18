@@ -1,15 +1,17 @@
+import 'package:task_manager_project/data/models/task_count_status_model.dart';
+
 class TaskCountByStatusWrapper {
   String? status;
-  List<Data>? data;
+  List<TaskCountByStatusModel>? taskCountByStatusList;
 
-  TaskCountByStatusWrapper({this.status, this.data});
+  TaskCountByStatusWrapper({this.status, this.taskCountByStatusList});
 
   TaskCountByStatusWrapper.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     if (json['data'] != null) {
-      data = <Data>[];
+      taskCountByStatusList = <TaskCountByStatusModel>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        taskCountByStatusList!.add(new TaskCountByStatusModel.fromJson(v));
       });
     }
   }
@@ -17,28 +19,9 @@ class TaskCountByStatusWrapper {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    if (this.taskCountByStatusList != null) {
+      data['data'] = this.taskCountByStatusList!.map((v) => v.toJson()).toList();
     }
-    return data;
-  }
-}
-
-class Data {
-  String? sId;
-  int? sum;
-
-  Data({this.sId, this.sum});
-
-  Data.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    sum = json['sum'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['sum'] = this.sum;
     return data;
   }
 }

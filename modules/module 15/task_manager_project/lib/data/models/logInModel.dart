@@ -10,15 +10,21 @@ class LogInModel {
   LogInModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     token = json['token'];
-    userModel = json['data'] != null ? UserModel.fromJson(json['data']) : null;
+
+    // Check if "data" exists and is a List, then get the first element if it exists
+    if (json['data'] != null && json['data'] is List && json['data'].isNotEmpty) {
+      userModel = UserModel.fromJson(json['data'][0]);
+    } else {
+      userModel = null;
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
     data['token'] = this.token;
-    if (this.userModel != null) {
-      data['data'] = userModel!.toJson();
+    if (userModel != null) {
+      data['data'] = [userModel!.toJson()]; // Wrap the user data in a list
     }
     return data;
   }
