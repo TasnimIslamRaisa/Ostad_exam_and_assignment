@@ -1,4 +1,5 @@
 import 'package:e_commers_app/presentation/controller/auth_controller.dart';
+import 'package:e_commers_app/presentation/controller/create_wish_list_controller.dart';
 import 'package:e_commers_app/presentation/ui/screens/email_varification_screen.dart';
 import 'package:e_commers_app/presentation/ui/screens/reviews_screen.dart';
 import 'package:e_commers_app/presentation/ui/widgets/centered_circularpogress.dart';
@@ -220,15 +221,26 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           ),
         ),
         const SizedBox(width: 8),
-        Card(
-          color: AppColors.themeColor,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-          child: const Padding(
-            padding: EdgeInsets.all(4.0),
-            child: Icon(
-              Icons.favorite_outline_rounded,
-              size: 16,
-              color: Colors.white,
+        InkWell(
+          onTap: () async {
+          bool added=await Get.find<CreateWishListController>().getCreatedWishtListById(productDetails.productId.toString());
+          if(added){
+            showSnackBarMsg("Successfuily", "Added To Wish List");
+          } else {
+            showSnackBarMsg("Failed", "You Have To LogIn");
+            Get.offAll(()=> const EmailVarificationScreen());
+          }
+          },
+          child: Card(
+            color: AppColors.themeColor,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+            child: const Padding(
+              padding: EdgeInsets.all(4.0),
+              child: Icon(
+                Icons.favorite_outline_rounded,
+                size: 16,
+                color: Colors.white,
+              ),
             ),
           ),
         )

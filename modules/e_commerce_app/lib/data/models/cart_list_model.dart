@@ -2,18 +2,18 @@ import 'cart_model.dart';
 
 class CartListModel {
   String? msg;
-  List<CartModel>? cartListData;
+  List<CartModel>? cartListdata;
+  //CartModel? cartListdata;
 
-  CartListModel({this.msg, this.cartListData});
+  CartListModel({this.msg, this.cartListdata});
 
   CartListModel.fromJson(Map<String, dynamic> json) {
     msg = json['msg'];
     if (json['data'] != null) {
-      cartListData = <CartModel>[];
+      cartListdata = <CartModel>[];
       json['data'].forEach((v) {
-        cartListData!.add(CartModel.fromJson(v));
+        cartListdata!.add(new CartModel.fromJson(v));
       });
     }
-     }
+  }
 }
-
