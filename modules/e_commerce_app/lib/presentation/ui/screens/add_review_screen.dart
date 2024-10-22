@@ -6,7 +6,7 @@ class AddReviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add Review"),
+        title: const Text("Create Review"),
       ),
     );
   }
