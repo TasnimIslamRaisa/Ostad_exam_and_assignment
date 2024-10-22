@@ -212,7 +212,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         const SizedBox(width: 8),
         TextButton(
           onPressed: () {
-            Get.to(()=>ReviewsScreen());
+            Get.to(()=>ReviewsScreen(productId: productDetailsModel.productId ?? 1));
           },
           child: const Text(
             'Reviews',
