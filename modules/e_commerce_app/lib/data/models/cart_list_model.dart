@@ -12,7 +12,7 @@ class CartListModel {
     if (json['data'] != null) {
       cartListdata = <CartModel>[];
       json['data'].forEach((v) {
-        cartListdata!.add(new CartModel.fromJson(v));
+        cartListdata!.add(CartModel.fromJson(v));
       });
     }
   }

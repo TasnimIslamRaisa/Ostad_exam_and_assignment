@@ -83,4 +83,3 @@ class ProductModel {
     return data;
   }
 }
-

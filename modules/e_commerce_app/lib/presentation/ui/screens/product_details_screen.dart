@@ -296,7 +296,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   Future<void> _onTabAddToCard() async{
     bool isLoggedInUser=await Get.find<AuthController>().isLoggedIn();
     if(isLoggedInUser){
-      final result= await Get.find<AddToCartController>().addToCart(widget.productId, _selectedColor, _selectedSize, quantity);
+      AuthController.accessToken;
+      final result= await Get.find<AddToCartController>().addToCart(
+          widget.productId,
+          _selectedColor,
+          _selectedSize,
+          quantity
+      );
       if(result){
         showSnackBarMsg('Successfully','Added To Cart');
       }
@@ -306,7 +312,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         }
       }
     } else {
-      Get.to(()=>const EmailVarificationScreen());
+      Get.offAll(()=>const EmailVarificationScreen());
     }
 
   }

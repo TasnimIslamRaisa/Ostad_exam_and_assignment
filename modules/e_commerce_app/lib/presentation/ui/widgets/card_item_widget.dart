@@ -8,7 +8,7 @@ import '../utils/assets_path.dart';
 class CardItemWidget extends StatefulWidget {
   final CartModel cartModel;
   const CardItemWidget({
-    super.key,required this.cartModel,
+    super.key,required this.cartModel, required Null Function(dynamic totalPrice) onValueChanged,
   });
 
   @override
