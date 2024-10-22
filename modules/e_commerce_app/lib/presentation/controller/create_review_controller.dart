@@ -18,7 +18,7 @@ class CreateReviewController extends GetxController {
   String? _errorMsg;
   String? get errorMsg => _errorMsg;
 
-  Future<bool> postCreateProfileDetails(
+  Future<bool> postCreateReview(
     String firstName,
     String lastName,
     String description,
@@ -32,7 +32,7 @@ class CreateReviewController extends GetxController {
     Map<String, dynamic> completeReview = {
       "cus_name": "$firstName $lastName",
       "description": "$description",
-      "product_id": productId, 
+      "product_id": productId,
       "rating": "$rating"
     };
 
