@@ -19,7 +19,7 @@ class CategoryListController extends GetxController {
     _inprogress = true;
     update();
     final NetworkResponse response =
-    await Get.find<NetworkCaller>().getRequest(url: Urls.catListUrl);
+    await Get.find<NetworkCaller>().getRequest(url: Urls.catagoryListUrl);
     if(response.isSuccess){
       _errorMsg=null;
       _categoryList = CategoryListModel.fromJson(response.responseData).categoryList ?? [];
