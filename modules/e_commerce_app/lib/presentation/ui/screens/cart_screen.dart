@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../controller/bottom_nav_bar_controller.dart';
 import '../utils/app_colors.dart';
 import '../widgets/card_item_widget.dart';
+import 'invoice_creation_screen.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({
@@ -120,7 +121,9 @@ class _CartScreenState extends State<CartScreen> {
             SizedBox(
                 width: 140,
                 child: ElevatedButton(
-                    onPressed: () {}, child: const Text('Checkout')))
+                    onPressed: () {
+                      Get.to(() => const InvoiceCreationScreen());
+                    }, child: const Text('Checkout')))
           ],
         ),
       ),
