@@ -11,6 +11,7 @@ import 'package:e_commers_app/presentation/controller/email_verification_control
 import 'package:e_commers_app/presentation/controller/new_product_list_controller.dart';
 import 'package:e_commers_app/presentation/controller/otp_controller.dart';
 import 'package:e_commers_app/presentation/controller/otp_verification_controller.dart';
+import 'package:e_commers_app/presentation/controller/payment_webview_controller.dart';
 import 'package:e_commers_app/presentation/controller/popular_product_list_controller.dart';
 import 'package:e_commers_app/presentation/controller/product_details_by_id_controller.dart';
 import 'package:e_commers_app/presentation/controller/product_details_controller.dart';
@@ -52,6 +53,8 @@ class ControllerBinder extends Bindings{
     Get.put(CreateWishListController());
     Get.put(ReviewProfileController());
     Get.put(DeleteCartController());
+    Get.put(PaymentWebViewController());
+
 
   }
 
